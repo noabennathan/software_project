@@ -13,8 +13,12 @@ typedef struct graph {
 	double* K;
 
 	int* f;
+
 	/*modularity matrix*/
 	double** B;
+
+	/*list of dagrees*/
+	int* neighbors;
 
 } graph;
 

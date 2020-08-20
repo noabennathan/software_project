@@ -6,7 +6,7 @@
 #define LENTH(x)  (sizeof(x) / sizeof((x)[0]))
 
 graph* initialize_graph_from_input(FILE* input_file){
-	int k, i, n, j, *q, *p, M = 0, *neighbors;
+	int k, i, n, j, *q, *p, M = 0;
 	double  *K;
 	graph* graph;
 	int* curr_vertex_neighbors;
@@ -15,12 +15,12 @@ graph* initialize_graph_from_input(FILE* input_file){
 	graph->n = n;
 	//assert(k == 1);
 
-	neighbors = (int*)malloc(sizeof(int)*n);
+	graph->neighbors = (int*)malloc(sizeof(int)*n);
 	/* create A and calculate M */
 	A = (int*)malloc(sizeof(int)*n*n);
 	for (i = 0; i < n; i++){
 		k = fread(&j, sizeof(int), 1, input_file);
-		*(neighbors + i) = j; //now neighbors[i] = ki the number of neighbors i has
+		*(graph->neighbors + i) = j; //now neighbors[i] = ki the number of neighbors i has
 		//assert(k == 1);
 		curr_vertex_neighbors = (int*) (malloc(j*sizeof(int)));
 		k = fread(curr_vertex_neighbors, sizeof(int), j, input_file);
@@ -36,8 +36,8 @@ graph* initialize_graph_from_input(FILE* input_file){
 	/*builds K*/
 	i = 0;
 	j = 0;
-	for(p = neighbors[0]; p<neighbors[n]; p++){
-		for(q = neighbors[0]; q<neighbors[n]; q++){
+	for(p = graph->neighbors[0]; p<graph->neighbors[n]; p++){
+		for(q = graph->neighbors[0]; q<graph->neighbors[n]; q++){
 			*(K + (i*n) +j) = ((*q)*(*p))/M;
 			j++;
 		}

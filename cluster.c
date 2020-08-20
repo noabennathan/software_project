@@ -27,9 +27,6 @@ int main(int argc, char* argv[]){
 	/*crates A as spmat*/
 	crate_spmat(src_graph, src_graph->n);
 
-	/*creates K from A*/
-	src_graph->K = build_k(src_graph);
-
 	/*compute f*/
 
 	/*initialize P,O as linked lists*/
@@ -80,9 +77,11 @@ void create_spmat (graph* graph, int n){
 		i++;
 	}
 }
-
+//general way after we have neighbors list
 double* build_k (graph* graph){
 	double* K;
+	int i, j;
+
 	//write code//
 	return K;
 }
