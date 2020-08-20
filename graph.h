@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
 typedef struct graph {
 	/* n = |V| number of vertices */
 	int n;
@@ -14,7 +18,9 @@ typedef struct graph {
 
 } graph;
 
-/*creates the source graph from the input file*/
+/* creates the source graph from the input file *
+ * calculates M *
+ * build K */
 graph* initialize_graph_from_input(FILE* input_file);
 /*creates the reduction graph g from the original graph and A*/
 graph* reduction_graph(int* g, int original_A);
