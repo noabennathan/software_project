@@ -25,7 +25,7 @@ graph* initialize_graph_from_input(FILE* input_file){
 		curr_vertex_neighbors = (int*) (malloc(j*sizeof(int)));
 		k = fread(curr_vertex_neighbors, sizeof(int), j, input_file);
 		//assert(k == j);
-		for (q = curr_vertex_neighbors[0]; q<curr_vertex_neighbors[j]; q++){
+		for (q = curr_vertex_neighbors; q<(curr_vertex_neighbors + j); q++){
 			*p = *q;
 			*(A + (i*n) + p) = 1;
 			M += 1;
@@ -37,7 +37,7 @@ graph* initialize_graph_from_input(FILE* input_file){
 	i = 0;
 	j = 0;
 	for(p = graph->neighbors[0]; p<graph->neighbors[n]; p++){
-		for(q = graph->neighbors[0]; q<graph->neighbors[n]; q++){
+		for(q = graph->neighbors; q<graph->neighbors + n; q++){
 			*(K + (i*n) +j) = ((*q)*(*p))/M;
 			j++;
 		}

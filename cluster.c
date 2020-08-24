@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
 
 	/*initialize P,O as linked lists*/
 	first_group = (int*)malloc(sizeof(int)*src_graph->n);
-	for (p = first_group[0]; p < first_group[src_graph->n]; p++){
+	for (p = first_group; p < (first_group + src_graph->n); p++){
 		*p = i;
 		i++;
 	}
@@ -42,25 +42,30 @@ int main(int argc, char* argv[]){
 	while (group != NULL){
 		res_groups = divide_a_group_into_two(group);
 		g1 = res_groups[0];
-		g2 = res_groups(group)[1];
+		g2 = res_groups[1];
 		/*algorithm 4*/
 		maximization_delta_Q(g1, g2);
 		if (g1->size == 0){
 			O->tail->next = g2;
+			O->tail = g2;
 		}
 		if (g2->size == 0){
 			O->tail->next = g1;
-		}
+            O->tail = g1;
+        }
 		else{
 			if(g1->size == 1){
 				O->tail->next = g1;
-			}
+                O->tail = g1;
+            }
 			if(g2->size == 1){
 				O->tail->next = g2;
-			}
+                O->tail = g2;
+            }
 			else{
 			P->tail->next = g1;
-			P->tail->next = g2;
+			P->tail->next->next = g2;
+			P->tail = g2;
 			}
 		}
 	}
@@ -72,7 +77,7 @@ void create_spmat (graph* graph, int n){
 	int i = 0;
 	spmat* A = spmat_allocate_list(n);
 	int* src_A = graph->A;
-	for (p = &src_A[0]; p < src_A[n] ; p++){
+	for (p = src_A; p < (src_A + n) ; p++){
 		add_row(A, p, i);
 		i++;
 	}
