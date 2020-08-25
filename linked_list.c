@@ -1,7 +1,6 @@
 
 typedef struct Node{
-	int* data;
-	int size;
+	graph* data;
 	struct Node* next;
 }Node;
 

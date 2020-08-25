@@ -99,4 +99,15 @@ void	mult(const struct _spmat *A, const double *v, double *result)
     }
 }
 
+void create_spmat (graph* graph, int n){
+	int* p;
+	int i = 0;
+	spmat* A = spmat_allocate_list(n);
+	int* src_A = graph->A;
+	for (p = src_A; p < (src_A + n) ; p++){
+		add_row(A, p, i);
+		i++;
+	}
+}
+
 

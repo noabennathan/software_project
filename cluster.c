@@ -7,7 +7,6 @@
 #include "algorithm4.c"
 #include "linked_list.c"
 
-void create_spmat (spmat*, graph*, int);
 int* build_k (graph*);
 
 int main(int argc, char* argv[]){
@@ -15,8 +14,8 @@ int main(int argc, char* argv[]){
 	FILE* output_file = fopen(argv[2], "w");
 	//assert(argc > 0);
 	linked_list* P, O;
-	Node* g1, g2, group, *res_groups;
-	graph* src_graph;
+	Node *g1, *g2, *group, *res_groups;
+	graph* src_graph, g;
 	double* K;
 	int i = 0, *p, first_group;
 
@@ -38,27 +37,27 @@ int main(int argc, char* argv[]){
 	P->head->data = first_group;
 
 	/*algorithm 2 iteration*/
-	group = P->head;
+	P->head = group;
 	while (group != NULL){
-		res_groups = divide_a_group_into_two(group);
+		res_groups = divide_a_group_into_two(g); //get g
 		g1 = res_groups[0];
 		g2 = res_groups[1];
 		/*algorithm 4*/
 		maximization_delta_Q(g1, g2);
-		if (g1->size == 0){
+		if (g1->data->n == 0){
 			O->tail->next = g2;
 			O->tail = g2;
 		}
-		if (g2->size == 0){
+		if (g2->data->n == 0){
 			O->tail->next = g1;
             O->tail = g1;
         }
 		else{
-			if(g1->size == 1){
+			if(g1->data->n == 1){
 				O->tail->next = g1;
                 O->tail = g1;
             }
-			if(g2->size == 1){
+			if(g2->data->n == 1){
 				O->tail->next = g2;
                 O->tail = g2;
             }
@@ -72,17 +71,8 @@ int main(int argc, char* argv[]){
 	//return O;
 }
 
-void create_spmat (graph* graph, int n){
-	int* p;
-	int i = 0;
-	spmat* A = spmat_allocate_list(n);
-	int* src_A = graph->A;
-	for (p = src_A; p < (src_A + n) ; p++){
-		add_row(A, p, i);
-		i++;
-	}
-}
 //general way after we have neighbors list
+
 double* build_k (graph* graph){
 	double* K;
 	int i, j;
@@ -90,4 +80,6 @@ double* build_k (graph* graph){
 	//write code//
 	return K;
 }
+
+
 
