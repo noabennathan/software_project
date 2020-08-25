@@ -50,10 +50,12 @@ graph* initialize_graph_from_input(FILE* input_file){
 }
 graph* array_to_graph(int* list_nodes, graph* original_graph, int len){
 	graph* new_graph = malloc(sizeof(graph));
-	reduction_A(new_graph, len, list_nodes, original_graph);
-	reduction_K(new_graph, len, list_nodes, original_graph);
+	new_graph->n = len;
+	new_graph->ver_list = list_nodes;
+	reduction_A(new_graph, len, list_nodes, original_graph); //updates A, A_row_sum, M
+	reduction_K(new_graph, len, list_nodes, original_graph);//updates K, K_row_sum
 	create_spmat (new_graph, len);
-
+	compute_f(new_graph);
 	return new_graph;
 }
 void reduction_A(graph new_graph, int len, int* g, graph* src_graph){
@@ -84,13 +86,20 @@ void reduction_A(graph new_graph, int len, int* g, graph* src_graph){
 void reduction_K(graph new_graph, int len, int* g, graph* src_graph){
 	double* K = malloc(sizeof(double)*len);
 	int M = new_graph->M;
-	int i, j, k, count;
+	int i, j, k, row_sum;
+	int* degrees = new_graph->A_row_sum;
 	for (i = 0; i < len; i++){
+		row_sum = 0;
 		for (j = 0; j < len; j++){
-			if ()
+			k = (*(degrees+i))*(*(degrees+j))/M;
+			*K((len*i)+j) = k;
+			row_sum += k;
 		}
+		new_graph->K_row_sum[i] = row_sum;
 	}
-
 	new_graph->K = K;
+}
+
+void compute_f(graph new_graph){
 
 }
