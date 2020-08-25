@@ -1,3 +1,6 @@
+#include "graph.c"
+#include "graph.h"
+
 
 typedef struct Node{
 	graph* data;
