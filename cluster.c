@@ -7,7 +7,6 @@
 #include "algorithm4.c"
 #include "linked_list.c"
 
-int* build_k (graph*);
 
 int main(int argc, char* argv[]){
 	FILE* input_file = fopen(argv[1], "r");
@@ -39,7 +38,7 @@ int main(int argc, char* argv[]){
 	/*algorithm 2 iteration*/
 	P->head = group;
 	while (group != NULL){
-		res_groups = divide_a_group_into_two(g); //get g
+		res_groups = divide_a_group_into_two(group); //get g
 		g1 = res_groups[0];
 		g2 = res_groups[1];
 		/*algorithm 4*/

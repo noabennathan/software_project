@@ -20,9 +20,14 @@ typedef struct graph {
 
 	int* f;
 
-	/*list of dagrees*/
-
+	/*list of vertex*/
 	int* ver_list;
+
+	/*list of row sum of K*/
+	double* K_row_sum;
+
+	/*list of row sum of A, A_row_sum[i] = ki*/
+	int* A_row_sum;
 
 } graph;
 
@@ -34,12 +39,9 @@ typedef struct graph {
  * build K */
 graph* initialize_graph_from_input(FILE* input_file);
 
-/*creates the reduction graph g from the original graph and A*/
-graph* array_to_graph(int* list_nodes, int* original_A);
+/*creates the reduction graph g from the original graph*/
+graph* array_to_graph(int* list_nodes, graph* original_graph, int len);
 
-/*creates the reduction A from the original A*/
-int* reduction_A(int n, int* g, int M);
 
-double* reduction_K(int n, int* reduction_A, int reduction_M);
 
 
