@@ -50,14 +50,9 @@ graph* initialize_graph_from_input(FILE* input_file){
 	return graph;
 
 }
+graph* array_to_graph(int* list_nodes, int* original_A){
 
-graph* reduction_graph(int* g,int original_A){
-	graph* reduction_graph = (graph*)malloc(sizeof(graph));
-	reduction_graph->A = reduction_A(LENTH(g), g, original_A);
-
-	return reduction_graph;
 }
-
 int* reduction_A(int n, int* g, int* src_A){
 	int i, *row;
 	int* reduction_A = (int*)malloc(sizeof(int)*n);

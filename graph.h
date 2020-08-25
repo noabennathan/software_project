@@ -21,7 +21,6 @@ typedef struct graph {
 	int* f;
 
 	/*list of dagrees*/
-	int* neighbors_dag;
 
 	int* ver_list;
 
@@ -36,9 +35,7 @@ typedef struct graph {
 graph* initialize_graph_from_input(FILE* input_file);
 
 /*creates the reduction graph g from the original graph and A*/
-graph* reduction_graph(int* g, int original_A);
-
-graph* array_to_graph(int* list_nodes);
+graph* array_to_graph(int* list_nodes, int* original_A);
 
 /*creates the reduction A from the original A*/
 int* reduction_A(int n, int* g, int M);
