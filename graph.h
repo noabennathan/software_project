@@ -18,7 +18,10 @@ typedef struct graph {
 	/*expectation edges matrix*/
 	double* K;
 
-	int* f;
+	/*modularity matrix*/
+	double* B;
+
+	double* f;
 
 	/*list of vertex*/
 	int* ver_list;
@@ -41,6 +44,9 @@ graph* initialize_graph_from_input(FILE* input_file);
 
 /*creates the reduction graph g from the original graph*/
 graph* array_to_graph(int* list_nodes, graph* original_graph, int len);
+
+/*free all the mem that was allocate*/
+void delete_graph(graph* graph);
 
 
 

@@ -6,6 +6,7 @@
 #include "algorithm2.c"
 #include "algorithm4.c"
 #include "linked_list.c"
+#include "warnings.c"
 
 
 int main(int argc, char* argv[]){
@@ -13,10 +14,17 @@ int main(int argc, char* argv[]){
 	FILE* output_file = fopen(argv[2], "w");
 	//assert(argc > 0);
 	linked_list* P, O;
-	Node *g1, *g2, *group, *res_groups;
+	Node *g1, *g2, *group;
 	graph* src_graph, g;
 	double* K;
-	int i = 0, *p, first_group;
+	int i = 0, *p, first_group, *S;
+
+    g1 = (Node*)malloc(sizeof(Node));
+    g2 = (Node*)malloc(sizeof(Node));
+    group = (Node*)malloc(sizeof(Node));
+    src_graph = (graph*)malloc(sizeof(graph));
+    P = (linked_list*)malloc(sizeof(linked_list));
+    O = (linked_list*)malloc(sizeof(linked_list));
 
 
 	/*read input file to struct graph*/
@@ -27,58 +35,72 @@ int main(int argc, char* argv[]){
 
 	/*compute f*/
 
-	/*initialize P,O as linked lists*/
-	first_group = (int*)malloc(sizeof(int)*src_graph->n);
-	for (p = first_group; p < (first_group + src_graph->n); p++){
-		*p = i;
-		i++;
-	}
-	P->head->data = first_group;
+	initialize_list(P);
+	initialize_list(O);
+
+	add_node(P, src_graph);
 
 	/*algorithm 2 iteration*/
 	P->head = group;
 	while (group != NULL){
-		res_groups = divide_a_group_into_two(group); //get g
-		g1 = res_groups[0];
-		g2 = res_groups[1];
+//		g1 = divide_a_group_into_two(group);
+//		g2 = g1->next;
+//		g1->next = NULL;
+//		delete_first_node(P);
 		/*algorithm 4*/
-		maximization_delta_Q(g1, g2);
+		maximization_delta_Q(S, group);
 		if (g1->data->n == 0){
-			O->tail->next = g2;
-			O->tail = g2;
+			add_node(O, g2);
 		}
 		if (g2->data->n == 0){
-			O->tail->next = g1;
-            O->tail = g1;
+			add_node(O, g1);
         }
 		else{
 			if(g1->data->n == 1){
-				O->tail->next = g1;
-                O->tail = g1;
+				add_node(O, g1);
             }
 			if(g2->data->n == 1){
-				O->tail->next = g2;
-                O->tail = g2;
+				add_node(O, g2);
             }
 			else{
-			P->tail->next = g1;
-			P->tail->next->next = g2;
-			P->tail = g2;
+				add_node(P, g1);
+				add_node(P, g2);
 			}
 		}
+	group = P->head;
 	}
-	//return O;
+	write_to_output(output_file, O);
+	delete_list(P);
+	delete_list(O);
+	delete_graph(src_graph);
+
+	fclose(input_file);
+	fclose(output_file);
+	return 0;
 }
 
-//general way after we have neighbors list
+write_to_output(FILE* output_file, linked_list O){
+	int n, *p, *q, *len;
+	int *num_of_groups = list_count(O);
+	n = fwrite(num_of_groups, sizeof(int), 1, output_file);
+	//assert(n==1);
+	assert_int(n,1);
+	Node* node = O->head;
+	while (node != NULL){
+		*(len) = node->data->n;
+		n = fwrite(len, sizeof(int), 1, output_file);
+		//assert(n==1);
+		assert_int(n,1);
+		int* ver_list = node->data->ver_list;
+		n = fwrite(q, sizeof(int), 1, output_file);
+		for(p = ver_list; p < (ver_list + *len); p++){
+			*q = *p;
+			n = fwrite(q, sizeof(int), 1, output_file);
+			//assert(n==1);
+			assert_int(n,1);
+		}
 
-double* build_k (graph* graph){
-	double* K;
-	int i, j;
-
-	//write code//
-	return K;
+	}
 }
-
 
 

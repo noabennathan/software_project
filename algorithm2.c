@@ -26,6 +26,8 @@ Node* divide_a_group_into_two(Node* g){
     Node *g1, *g2;
     S = (int*)malloc(sizeof(int) * group -> n);
     eigen_value = (double*)malloc(sizeof(int));
+    g1 = (Node*)malloc(sizeof(Node));
+    g2 = (Node*)malloc(sizeof(Node));
 
     mat_shift(group); //shifting B
 
@@ -161,7 +163,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
 
         for (i = 0; i < n; i++)
         {
-            nextb[i] = nextb[i]/den;
+            nextb[i] = nextb[i]/norma;
             if (fabs(nextb - b[i]) > 0.00001)
                 diff = 1;
         }

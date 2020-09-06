@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "spmat.h"
+#include "graph.h"
+#include "graph.c"
 
 struct Linked_list{
     double val;
