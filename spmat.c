@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "spmat.h"
-#include "graph.h"
-#include "graph.c"
+
 
 struct Linked_list{
     double val;
