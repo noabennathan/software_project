@@ -19,15 +19,13 @@ double calculate_sbs(graph* group, int* S);
  * all the comments below are according to the flow of algorithm 2 as presented in the instructions
  */
 
-Node* divide_a_group_into_two(Node* g){
+int* divide_a_group_into_two(Node* g){
     graph *group = g ->data;
     double *eigen_value, *eigen_vector, sBs;
-    int *S, i, *g1_ver, *g2_ver, count = 0, j = 0, k = 0;
-    Node *g1, *g2;
+    int *S, i, *g1_ver, *g2_ver, count = 0;
     S = (int*)malloc(sizeof(int) * group -> n);
     eigen_value = (double*)malloc(sizeof(int));
-    g1 = (Node*)malloc(sizeof(Node));
-    g2 = (Node*)malloc(sizeof(Node));
+
 
     mat_shift(group); //shifting B
 
@@ -37,10 +35,7 @@ Node* divide_a_group_into_two(Node* g){
     /*line 2*/
     if (!IS_POSITIVE(eigen_value))
     {
-        g1 -> data = group;
-        g1 -> next = g2;
-        g2 -> data = NULL;
-        return g1;
+        return NULL;
     }
 
     /*line 3*/
@@ -59,13 +54,12 @@ Node* divide_a_group_into_two(Node* g){
     sBs = calculate_sbs(group, S);
     if (!IS_POSITIVE(sBs))
     {
-        g1 -> data = group;
-        g1 -> next = g2;
-        g2 -> data = NULL;
-        return g1;
+        return NULL;
     }
 
-    /*line 5*/
+    return S;
+
+    /*line 5
     g1_ver = (int*)malloc(sizeof(int) * count);
     g2_ver = (int*)malloc(sizeof(int) * (group->n - count));
     for (i = 0; i < group->n; i++)
@@ -86,6 +80,8 @@ Node* divide_a_group_into_two(Node* g){
     g2 -> data = array_to_graph(g2_ver, (group->n - count));
     g1 -> next = g2;
     return g1;
+
+     */
 }
 
 
