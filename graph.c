@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "spmat.c"
-//#include "warnings.c"
+#include "warnings.c"
 
 graph* initialize_graph_from_input(FILE* input_file);
 graph* array_to_graph(int* list_nodes, graph* original_graph, int len);

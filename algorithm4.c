@@ -3,7 +3,7 @@
 #include "graph.c"
 #include "graph.h"
 #include <math.h>
-#include "array.c"
+#include "my_array.c"
 
 
 maximization_delta_Q(int* S, graph* g);
@@ -67,7 +67,7 @@ maximization_delta_Q(int* S, graph* g){
 				l = find_max_index(unmoved, improve);
 				for (i = g->n-1; i > l; i--){
 					j = *(indices->data + i);
-					*(S + j) = -*(S + j);
+					*(S + j) = -*(S + j); //S[j]
 				}
 				if (l == g->n-1){
 					delta_Q = 0;

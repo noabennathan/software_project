@@ -6,7 +6,7 @@
 #include "algorithm2.c"
 #include "algorithm4.c"
 #include "linked_list.c"
-#include "warnings.c"
+
 
 
 int main(int argc, char* argv[]){
