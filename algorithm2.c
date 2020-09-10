@@ -121,7 +121,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
     spmat* A = group->A_spmat;
     double* K = group->K;
     double* f = group->f;
-    double* K_row_sum = group -> K_row_sum;
+    double* A_row_sum = group -> A_row_sum;
     int diff = 1, i, n = group->n;
 
 
@@ -146,11 +146,11 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
         for (i = 0; i < n; i++)
         {
             f_tmp[i] = b[i] * f[i];
-            sum_sk = sum_sk + (b[i] * K_row_sum[i]);
+            sum_sk = sum_sk + (b[i] * A_row_sum[i]);
         }
         for (i = 0; i < n; i++)
         {
-            k_tmp[i] = sum_sk * K_row_sum[i] / group->M;
+            k_tmp[i] = sum_sk * A_row_sum[i] / group->M;
             nextb[i] = a_tmp[i] - k_tmp[i] - f_tmp[i];
             sum = sum + nextb[i] * nextb[i];
         }
@@ -175,11 +175,11 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
     for (i = 0; i < n; i++)
     {
         f_tmp[i] = b[i] * f[i];
-        sum_sk = sum_sk + (b[i] * K_row_sum[i]);
+        sum_sk = sum_sk + (b[i] * A_row_sum[i]);
     }
     for (i = 0; i < n; i++)
     {
-        k_tmp[i] = sum_sk * K_row_sum[i] / group->M;
+        k_tmp[i] = sum_sk * A_row_sum[i] / group->M;
         nextb[i] = a_tmp[i] - k_tmp[i] - f_tmp[i];
         x = nextb[i] * b[i];
         y = b[i] * b[i];
@@ -197,7 +197,7 @@ double calculate_sbs(graph* group, int* S)
     spmat* A = group->A_spmat;
     double* K = group->K;
     double* f = group->f;
-    double* K_row_sum = group -> K_row_sum;
+    double* A_row_sum = group -> A_row_sum;
     double *a_tmp, f_tmp, result, a_res = 0, f_res = 0, sum_sk = 0;
     int i, n = group->n;
 
@@ -208,7 +208,7 @@ double calculate_sbs(graph* group, int* S)
     for (i = 0; i < n; i++)
     {
         f_tmp[i] = S[i] * f[i];
-        sum_sk = sum_sk + (S[i] * K_row_sum[i]); //k_res = sum_sk^2
+        sum_sk = sum_sk + (S[i] * A_row_sum[i]); //k_res = sum_sk^2
     }
     for (i = 0; i < n; i++)
     {

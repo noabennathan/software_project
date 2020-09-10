@@ -4,6 +4,7 @@
 #include "graph.h"
 #include <math.h>
 #include "my_array.c"
+#include "spmat.h"
 
 
 maximization_delta_Q(int* S, graph* g);
@@ -87,8 +88,23 @@ maximization_delta_Q(int* S, graph* g){
 }
 
 
-double* mult(double *B,int *S){
+double* mult(graph *group,int *S){
+    int n = group -> n, i;
+    double sum_sk = 0;
+    spmat* A = group->A_spmat;
+    double *a_tmp = calloc(n, sizeof(double ));
+    double *result = calloc(n, sizeof(double));
 
+    mult(A, S, a_tmp);
+    for (i = 0; i < n; i++)
+    {
+        sum_sk = sum_sk + (S[i] * group ->A_row_sum[i]);
+    }
+    for (i = 0; i < n; i++)
+    {
+        result[i] = a_tmp[i] - (group->A_row_sum[i] * sum_sk / group->M);
+    }
+    return result;
 }
 
 int is_not_emapty(array* unmoved){
