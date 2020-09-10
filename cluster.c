@@ -6,7 +6,11 @@
 #include "algorithm2.c"
 #include "algorithm4.c"
 #include "linked_list.c"
+#include "my_assert.c"
 
+
+from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group);
+write_to_output(FILE* output_file, linked_list O);
 
 
 int main(int argc, char* argv[]){
@@ -43,12 +47,10 @@ int main(int argc, char* argv[]){
 	/*algorithm 2 iteration*/
 	P->head = group;
 	while (group != NULL){
-//		g1 = divide_a_group_into_two(group);
-//		g2 = g1->next;
-//		g1->next = NULL;
-//		delete_first_node(P);
+		delete_first_node(P);
 		/*algorithm 4*/
 		maximization_delta_Q(S, group);
+		from_S_to_2_groups(S, g1, g2, group);
 		if (g1->data->n == 0){
 			add_node(O, g2);
 		}
@@ -77,6 +79,32 @@ int main(int argc, char* argv[]){
 	fclose(input_file);
 	fclose(output_file);
 	return 0;
+}
+
+from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
+	int *g1_ver, *g2_ver, i, count = 0, j = 0, k = 0;
+	for (i = 0; i < group->n; i++)
+	{
+		if (S[i] == 1){
+			count++;
+		}
+	}
+	g1_ver = (int*)malloc(sizeof(int) * count);
+	g2_ver = (int*)malloc(sizeof(int) * (group->n - count));
+	for (i = 0; i < group->n; i++)
+	{
+		if (S[i] == 1){
+			g1_ver[j] = group -> ver_list[i];
+			j++;
+		}
+		else
+		{
+			g2_ver[k] = group -> ver_list[i];
+			k++;
+		}
+	}
+	g1 -> data = array_to_graph(g1_ver, count);
+	g2 -> data = array_to_graph(g2_ver, (group->n - count));
 }
 
 write_to_output(FILE* output_file, linked_list O){

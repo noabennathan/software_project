@@ -24,61 +24,55 @@ maximization_delta_Q(int* S, graph* g){
 	allocate_mem_size_n(improve, g->n);
 
 	while (delta_Q > 0){
+		unmoved_initialization(unmoved);
 		x = mult(g->B,S);
-		for (i = 0; i<g->n; i++){
-			/*computing delta_Q for each node - block 2*/
-			q = S;
-			h = x;
-			r = g->A_row_sum;
-			for (p = score; p < (score + g->n); p++){
-				*p = -2*(*h*(*q)+(pow((*r),2))/g->M);
-				h++;
-				q++;
-				r++;
+		/*computing delta_Q for each node - block 2*/
+		q = S;
+		h = x;
+		r = g->A_row_sum;
+		for (p = score; p < (score + g->n); p++){
+			*p = -2*(*h*(*q)+(pow((*r),2))/g->M);
+			h++;
+			q++;
+			r++;
+		}
+		for (i = 0; i < g->n; i++){
+			k = find_max_index(unmoved, score);
+			/*changing group for index k*/
+			*(S + k) = -*(S + k);
+			indices->data[i]= k;
+			/*line 14-18*/
+			if (i == 0){
+				improve->data[i] = score->data[k];
 			}
-			while (is_not_emapty(unmoved)){
-				k = find_max_index(unmoved, score);
-				/*changing group for index k*/
-				*(S + k) = -*(S + k);
-				p = indices->data;
-				q = improve->data;
-				for (i = 0; i < g->n; i++){
-					*p = k;
-					/*line 14-18*/
-					if (i == 0){
-						*q = *(score->data + k);
-					}
-					else{
-						*q = *(q-1) + *(score->data + k);
-					}
-					p++;
-					q++;
-					/*block 3*/
-					for (j = 0; j < g->n; j++){
-						if (j == k){
-							score->data[j] = -score->data[j];
-						}
-						else{
-							score[j] = score[j] - 4*S[j]*S[k]*(g->B[(j*g->n)+k]);
-						}
-					}
-				}
-				remove_index(unmoved, k);
-				/*lines 21-30*/
-				l = find_max_index(unmoved, improve);
-				for (i = g->n-1; i > l; i--){
-					j = *(indices->data + i);
-					*(S + j) = -*(S + j); //S[j]
-				}
-				if (l == g->n-1){
-					delta_Q = 0;
+			else{
+				improve->data[i] = score->data[i-1] + score->data[k];
+			}
+			remove_index(unmoved, k);
+			/*block 3*/
+			for (j = 0; j < g->n; j++){
+				if (j == k){
+					score->data[j] = -score->data[j];
 				}
 				else{
-					delta_Q = *(improve + l);
+					score[j] = score[j] - 4*S[j]*S[k]*(g->B[(j*g->n)+k]);
 				}
 			}
 		}
+		/*lines 21-30*/
+		l = find_max_index(unmoved, improve);
+		for (i = g->n-1; i > l; i--){
+			j = *(indices->data + i);
+			*(S + j) = -*(S + j);
+			}
+		if (l == g->n-1){
+			delta_Q = 0;
+		}
+		else{
+			delta_Q = *(improve + l);
+		}
 	}
+
 	array_delete(unmoved);
 	array_delete(indices);
 	array_delete(score);
@@ -123,5 +117,12 @@ int find_max_index(array* unmoved, array* score){
 		}
 	}
 	return max_k;
+}
+
+unmoved_initialization(array* unmoved){
+	int i;
+	for (i = 0; i < unmoved->size; i++){
+		unmoved->data[i] = i;
+	}
 }
 
