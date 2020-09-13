@@ -14,7 +14,7 @@ algorithm4.o: algorithm4.c graph.c graph.h my_array.c spmat.h
 	gcc ${FLAGS} algorithm4.c
 
 graph.o: graph.c spmat.c my_assert.c
-	gcc ${FLAGS} division.c
+	gcc ${FLAGS} graph.c
 
 linked_list.o: linked_list.c graph.c graph.h
 	gcc ${FLAGS} linked_list.c
