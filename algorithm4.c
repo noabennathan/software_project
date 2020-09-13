@@ -11,7 +11,7 @@ double* multi(graph *group,int *S);
 
 void maximization_delta_Q(int* S, graph* g){
 	int max_index, i, j, k, m, *r, *q, l;
-	double *x, delta_Q, Q_0, *p, *h, max_score, max_improve;
+	double *x, delta_Q = 0, Q_0, *p, *h, max_score, max_improve;
 	array *unmoved, *indices, *unmoved_copy, *score, *improve;
 	x = (double*)malloc(sizeof(double)*g->n);
 	unmoved = (array*)malloc(sizeof(array));
@@ -99,13 +99,6 @@ double* multi(graph *group,int *S){
         result[i] = a_tmp[i] - (group->A_row_sum[i] * sum_sk / group->M);
     }
     return result;
-}
-
-int is_not_empty(array* unmoved){
-	if (unmoved->size == 0){
-		return 0;
-	}
-	return 1;
 }
 
 int find_max_index(array* unmoved, array* score){

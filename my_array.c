@@ -1,14 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
-
-typedef struct array{
-	int size;
-	double* data;
-}array;
-
-int array_size(array* arr){
-	return arr->size;
-}
+#include "my_array.h"
 
 void allocate_mem_size_n(array *arr, int n){
 	double *new_data = (double*)malloc(sizeof(double)*n);
@@ -19,7 +10,7 @@ void remove_index(array *arr, int index){
 	int original_size = arr->size;
 	int new_size = original_size-1;
 	int i, j = 0;
-	double* new_data = (double*)malloc(sizeof(double)*sizeof(new_size));
+	double* new_data = (double*)malloc(sizeof(double)*new_size);
 	for (i = 0; i < new_size; i++){
 		if (arr->data[i] != index){
 			new_data[j] = i;
