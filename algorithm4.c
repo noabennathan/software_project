@@ -28,7 +28,7 @@ void maximization_delta_Q(int* S, graph* g){
 	while (delta_Q > 0){
 		unmoved_initialization(unmoved);
 		x = mult(g->B,S);
-		/*computing delta_Q for each node - block 2*/
+		/*computing delta_Q for each spnode - block 2*/
 		q = S;
 		h = x;
 		r = g->A_row_sum;

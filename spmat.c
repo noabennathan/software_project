@@ -9,7 +9,7 @@ struct Linked_list{
     int col;
     struct Linked_list *next;
 } Linked_list;
-typedef struct Linked_list node;
+typedef struct Linked_list spnode;
 
 
 
@@ -17,7 +17,7 @@ typedef struct Linked_list node;
 spmat* spmat_allocate(int n)
 {
     spmat *sm = malloc(sizeof(spmat));
-    node** row_lists = (node**)malloc(n*sizeof(node));
+    spnode** row_lists = (spnode**)malloc(n * sizeof(spnode));
     sm -> private = row_lists;
     return sm;
 }
@@ -30,9 +30,9 @@ spmat* spmat_allocate(int n)
 void	add_row (struct _spmat *A, const double *row, int i)
 {
     int n = A -> n;
-    node* head = NULL;
-    node* tail = NULL;
-    node** row_lists = (node**) A -> private;
+    spnode* head = NULL;
+    spnode* tail = NULL;
+    spnode** row_lists = (spnode**) A -> private;
     int j;
     int nnz = 0;
     for (j = 0; j < n; j++)
@@ -41,11 +41,11 @@ void	add_row (struct _spmat *A, const double *row, int i)
         {
             if (head == NULL)
             {
-                head = tail = malloc(sizeof(node));
+                head = tail = malloc(sizeof(spnode));
             }
             else
             {
-                tail->next = malloc(sizeof(node));
+                tail->next = malloc(sizeof(spnode));
                 tail = tail->next;
                 tail->val = row[j];
                 tail->col = j;
@@ -56,7 +56,7 @@ void	add_row (struct _spmat *A, const double *row, int i)
 }
 
 
-void empty_list(node* list_head){
+void empty_list(spnode* list_head){
     if(list_head != NULL){
         empty_list(list_head->next);
         free(list_head);
@@ -68,9 +68,9 @@ void empty_list(node* list_head){
 /* Frees all resources used by A */
 void	free_sm(struct _spmat *A)
 {
-    node** row_lists;
+    spnode** row_lists;
     int i;
-    row_lists = (node**) A -> private;
+    row_lists = (spnode**) A -> private;
     for (i = 0; i < A -> n; i++)
     {
         empty_list(row_lists[i]);
@@ -85,8 +85,8 @@ void	mult(const struct _spmat *A, const double *v, double *result)
 {
     int i;
     double sum;
-    node* temp;
-    node** row_lists = (node**) A->private;
+    spnode* temp;
+    spnode** row_lists = (spnode**) A->private;
     for (i = 0; i < A->n; i++)
     {
         temp = row_lists[i];
