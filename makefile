@@ -1,8 +1,8 @@
 FLAGS=-ansi -Wall -Wextra -Werror -pedantic-errors -c
 LIBS=-lm
 
-all: cluster.o algorithm2.o algorithm4.o graph.o linked_list.o my_array.o my_assert.o spmat.o
-	gcc cluster.o algorithm2.o algorithm4.o graph.o linked_list.o my_array.o my_assert.o spmat.o -o cluster ${LIBS}
+all:cluster.o algorithm2.o algorithm4.o graph.o linked_list.o my_array.o my_assert.o spmat.o
+    gcc cluster.o algorithm2.o algorithm4.o graph.o linked_list.o my_array.o my_assert.o spmat.o -o cluster ${LIBS}
 
 cluster.o: cluster.c spmat.h graph.h linked_list.c algorithm2.c algorithm4.c my_assert.c
 	gcc ${FLAGS} cluster.c
