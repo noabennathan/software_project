@@ -24,6 +24,8 @@ int* divide_a_group_into_two(Node* g){
     int *S, i, count = 0;
     S = (int*)malloc(sizeof(int) * group -> n);
     eigen_value = (double*)malloc(sizeof(int));
+    eigen_vector = (double*)malloc(group->n * sizeof(int));
+
 
     for (i = 0; i < group ->n; i++)
     {
@@ -31,7 +33,7 @@ int* divide_a_group_into_two(Node* g){
     }
 
 
-    mat_shift(group); //shifting B
+    mat_shift(group);
 
     /*line 1*/
     power_iteration(group, eigen_vector, eigen_value);
@@ -99,7 +101,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
 
     srand(time(NULL));
 
-    b = calloc(n, sizeof(double));
+    b = eigen_vector;
     nextb = calloc(n, sizeof(double));
     a_tmp = calloc(n, sizeof(double));
     f_tmp = calloc(n, sizeof(double));
@@ -157,7 +159,6 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
         y = b[i] * b[i];
     }
     *eigen_value = x/y;
-    eigen_vector = b;
     free(nextb);
     free(a_tmp);
     free(k_tmp);

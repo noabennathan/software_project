@@ -7,7 +7,7 @@
 void maximization_delta_Q(int* S, graph* g);
 void unmoved_initialization(array* unmoved);
 int find_max_index(array* unmoved, array* score);
-double* multi(graph *group,int *S)
+double* multi(graph *group,int *S);
 
 void maximization_delta_Q(int* S, graph* g){
 	int max_index, i, j, k, m, *r, *q, l;
