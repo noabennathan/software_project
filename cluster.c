@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "spmat.c"
 #include "graph.c"
 #include "algorithm2.c"
 #include "algorithm4.c"
