@@ -19,16 +19,15 @@ graph* initialize_graph_from_input(FILE* input_file){
 	double  *K;
 	graph* graph;
 	int* curr_vertex_neighbors;
-	graph = (graph*)malloc(sizeof(*graph));
-	graph->A = A;
+	graph = malloc(sizeof(*graph));
 	k = fread(&n, sizeof(int), 1, input_file);
 	assert_int(k,1);
 	graph->n = n;
+	A = (int*)malloc(sizeof(n*n*sizeof(int)));
 
 	graph->A_row_sum = (int*)malloc(sizeof(int)*n);
 
 	/* create A and calculate M */
-	A = (int*)malloc(sizeof(int)*n*n);
 	for (i = 0; i < n; i++){
 		k = fread(&j, sizeof(int), 1, input_file);
 		*(graph->A_row_sum + i) = j; //now A_row_sum[i] = ki the number of neighbors i has
@@ -44,6 +43,7 @@ graph* initialize_graph_from_input(FILE* input_file){
 		}
 		graph->M=M;
 	}
+    graph->A = A;
 
 	/*builds K*/
 	K = (double*)malloc(n*n*sizeof(double));
