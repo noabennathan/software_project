@@ -13,19 +13,18 @@ int main(int argc, char* argv[]){
     linked_list *P;
     linked_list *O;
     Node *g1, *g2, *group;
-    graph* src_graph, g;
-    double* K;
-    int i = 0, *p, first_group, *S;
+    graph* src_graph;
+    int *S;
     FILE* input_file = fopen(argv[1], "r");
 	FILE* output_file = fopen(argv[2], "w");
 	assert_biiger_zero(argc);
 
-    g1 = (Node*)malloc(sizeof(Node));
-    g2 = (Node*)malloc(sizeof(Node));
-    group = (Node*)malloc(sizeof(Node));
-    src_graph = (graph*)malloc(sizeof(graph));
-    P = (linked_list*)malloc(sizeof(linked_list));
-    O = (linked_list*)malloc(sizeof(linked_list));
+    g1 = (Node*)malloc(sizeof(Node*));
+    g2 = (Node*)malloc(sizeof(Node*));
+    group = (Node*)malloc(sizeof(Node*));
+    src_graph = (graph*)malloc(sizeof(graph*));
+    P = (linked_list*)malloc(sizeof(linked_list*));
+    O = (linked_list*)malloc(sizeof(linked_list*));
 
 
 	/*read input file to struct graph*/
@@ -110,22 +109,21 @@ void write_to_output(FILE* output_file, linked_list *O){
 	int *num_of_groups = list_count(O);
     Node* node;
 	n = fwrite(num_of_groups, sizeof(int), 1, output_file);
-	//assert(n==1);
 	assert_int(n,1);
 	node = O->head;
 	while (node != NULL){
 		*(len) = node->data->n;
 		n = fwrite(len, sizeof(int), 1, output_file);
-		//assert(n==1);
 		assert_int(n,1);
 		ver_list = node->data->ver_list;
 		n = fwrite(q, sizeof(int), 1, output_file);
+        assert_int(n,1);
 		for(p = ver_list; p < (ver_list + *len); p++){
 			*q = *p;
 			n = fwrite(q, sizeof(int), 1, output_file);
-			//assert(n==1);
 			assert_int(n,1);
 		}
+		node = node->next;
 
 	}
 }
