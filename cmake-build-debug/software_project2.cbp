@@ -8,103 +8,105 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug"/>
+				<Option working_dir="C:/Users/noyki/CLionProjects/software_project/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug"/>
+				<Option working_dir="C:/Users/noyki/CLionProjects/software_project/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="cluster">
-				<Option output="C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/cluster.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug"/>
+				<Option output="C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/cluster.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/noyki/CLionProjects/software_project/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
-					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
-					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
+					<Add directory="C:/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include"/>
+					<Add directory="C:/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../include"/>
+					<Add directory="C:/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include-fixed"/>
+					<Add directory="C:/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cluster"/>
-					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cluster"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="cluster/fast">
-				<Option output="C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/cluster.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug"/>
+				<Option output="C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/cluster.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/noyki/CLionProjects/software_project/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
-					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
-					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
+					<Add directory="C:/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include"/>
+					<Add directory="C:/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../include"/>
+					<Add directory="C:/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include-fixed"/>
+					<Add directory="C:/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cluster/fast"/>
-					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 cluster/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug"/>
+				<Option working_dir="C:/Users/noyki/CLionProjects/software_project/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/yuval_000/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/noyki/CLionProjects/software_project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/algorithm2.c">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/algorithm2.c">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/algorithm4.c">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/algorithm4.c">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/cluster.c">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/cluster.c">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/graph.c">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/graph.c">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/graph.h">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/graph.h">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/linked_list.c">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/linked_list.c">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/my_array.c">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/my_array.c">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/my_assert.c">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/my_assert.c">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/spmat.c">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/spmat.c">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/spmat.h">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/spmat.h">
 			<Option target="cluster"/>
 		</Unit>
-		<Unit filename="C:/Users/yuval_000/CLionProjects/software_project/CMakeLists.txt">
+		<Unit filename="C:/Users/noyki/CLionProjects/software_project/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

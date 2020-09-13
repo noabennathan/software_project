@@ -9,8 +9,8 @@
 #include "my_assert.c"
 
 
-from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group);
-write_to_output(FILE* output_file, linked_list O);
+void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group);
+void write_to_output(FILE* output_file, linked_list O);
 
 
 int main(int argc, char* argv[]){
@@ -81,7 +81,7 @@ int main(int argc, char* argv[]){
 	return 0;
 }
 
-from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
+void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
 	int *g1_ver, *g2_ver, i, count = 0, j = 0, k = 0;
 	for (i = 0; i < group->n; i++)
 	{
@@ -107,7 +107,7 @@ from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
 	g2 -> data = array_to_graph(g2_ver, (group->n - count));
 }
 
-write_to_output(FILE* output_file, linked_list O){
+void write_to_output(FILE* output_file, linked_list O){
 	int n, *p, *q, *len;
 	int *num_of_groups = list_count(O);
 	n = fwrite(num_of_groups, sizeof(int), 1, output_file);
