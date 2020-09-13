@@ -15,13 +15,13 @@ void compute_B(graph* graph);
 void create_spmat (graph* graph, int n);
 
 graph* initialize_graph_from_input(FILE* input_file){
-	int k, i, n, j, *q, *p, M = 0;
+	int k, i, n, j, *q, *p, M = 0, *A;
 	double  *K;
 	graph* graph;
 	int* curr_vertex_neighbors;
-	int* A = graph->A;
+	graph = (graph*)malloc(sizeof(*graph));
+	graph->A = A;
 	k = fread(&n, sizeof(int), 1, input_file);
-	//assert(k == 1);
 	assert_int(k,1);
 	graph->n = n;
 
@@ -46,6 +46,7 @@ graph* initialize_graph_from_input(FILE* input_file){
 	}
 
 	/*builds K*/
+	K = (double*)malloc(n*n*sizeof(double));
 	i = 0;
 	j = 0;
 	for(p = graph->A_row_sum; p<(graph->A_row_sum + n); p++){
@@ -55,6 +56,7 @@ graph* initialize_graph_from_input(FILE* input_file){
 		}
 		i++;
 	}
+	graph->K = K;
 	compute_B(graph);
 	compute_f(graph);
 	return graph;
@@ -72,7 +74,7 @@ graph* array_to_graph(int* list_nodes, graph* original_graph, int len){
 }
 
 void reduction_A(graph* new_graph, int len, int* g, graph* src_graph){
-	int i, j, row_sum, M;
+	int i, j, row_sum, M = 0;
 	int* src_A = src_graph->A;
 	int n = src_graph->n;
 	int* reduction_A = (int*)malloc(sizeof(int)*len);

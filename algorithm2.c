@@ -63,13 +63,6 @@ int* divide_a_group_into_two(Node* g){
 
     return S;
 }
-
-
-
-
-
-
-
 void mat_shift(graph* group)
 {
     int i, C = 0;
