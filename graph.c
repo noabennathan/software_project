@@ -1,7 +1,6 @@
 #include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include "spmat.c"
 #include "my_assert.c"
 
@@ -13,6 +12,7 @@ void reduction_K(graph* new_graph, int len);
 void delete_graph(graph* graph);
 void compute_f(graph* new_graph);
 void compute_B(graph* graph);
+void create_spmat (graph* graph, int n);
 
 graph* initialize_graph_from_input(FILE* input_file){
 	int k, i, n, j, *q, *p, M = 0;
@@ -153,4 +153,15 @@ void delete_graph(graph* graph){
 	free(graph->B);
 	free(graph->f);
 	free(graph->ver_list);
+}
+
+void create_spmat (graph* graph, int n){
+    int* p;
+    int i = 0;
+    spmat* A = spmat_allocate(n);
+    int* src_A = graph->A;
+    for (p = src_A; p < (src_A + n) ; p++){
+        add_row(A, (double*)p, i);
+        i++;
+    }
 }

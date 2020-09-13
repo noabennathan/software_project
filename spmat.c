@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "spmat.h"
-#include "graph.h"
 
 
 struct sp_Linked_list{
@@ -100,15 +99,5 @@ void	mult(const struct _spmat *A, const double *v, double *result)
     }
 }
 
-void create_spmat (graph* graph, int n){
-	int* p;
-	int i = 0;
-	spmat* A = spmat_allocate(n);
-	int* src_A = graph->A;
-	for (p = src_A; p < (src_A + n) ; p++){
-		add_row(A, (double*)p, i);
-		i++;
-	}
-}
 
 
