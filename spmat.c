@@ -4,12 +4,12 @@
 #include "graph.h"
 
 
-struct Linked_list{
+struct sp_Linked_list{
     double val;
     int col;
-    struct Linked_list *next;
-} Linked_list;
-typedef struct Linked_list spnode;
+    struct sp_Linked_list *next;
+} sp_Linked_list;
+typedef struct sp_Linked_list spnode;
 
 
 
