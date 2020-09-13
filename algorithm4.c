@@ -7,6 +7,7 @@
 void maximization_delta_Q(int* S, graph* g);
 void unmoved_initialization(array* unmoved);
 int find_max_index(array* unmoved, array* score);
+double* multi(graph *group,int *S)
 
 void maximization_delta_Q(int* S, graph* g){
 	int max_index, i, j, k, m, *r, *q, l;
@@ -24,7 +25,7 @@ void maximization_delta_Q(int* S, graph* g){
 
 	while (delta_Q > 0){
 		unmoved_initialization(unmoved);
-		x = mult(g->B,S);
+		x = multi(g,S);
 		/*computing delta_Q for each spnode - block 2*/
 		q = S;
 		h = x;
@@ -81,14 +82,14 @@ void maximization_delta_Q(int* S, graph* g){
 }
 
 
-double* mult(graph *group,int *S){
+double* multi(graph *group,int *S){
     int n = group -> n, i;
     double sum_sk = 0;
     spmat* A = group->A_spmat;
     double *a_tmp = calloc(n, sizeof(double ));
     double *result = calloc(n, sizeof(double));
 
-    mult(A, S, a_tmp);
+    mult(A, (double*)S, a_tmp);
     for (i = 0; i < n; i++)
     {
         sum_sk = sum_sk + (S[i] * group ->A_row_sum[i]);

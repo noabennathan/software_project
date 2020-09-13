@@ -33,7 +33,6 @@ void	add_row (struct _spmat *A, const double *row, int i)
     spnode* tail = NULL;
     spnode** row_lists = (spnode**) A -> private;
     int j;
-    int nnz = 0;
     for (j = 0; j < n; j++)
     {
         if (row[j] != 0)
@@ -80,7 +79,7 @@ void	free_sm(struct _spmat *A)
 
 
 /* Multiplies matrix A by vector v, into result (result is pre-allocated) */
-void	mult(struct _spmat *A, double *v, double *result)
+void	mult(struct _spmat *A, const double *v, double *result)
 {
     int i;
     double sum;
