@@ -22,7 +22,6 @@ int main(int argc, char* argv[]){
     g1 = (Node*)malloc(sizeof(Node*));
     g2 = (Node*)malloc(sizeof(Node*));
     group = (Node*)malloc(sizeof(Node*));
-    src_graph = (graph*)malloc(sizeof(graph*));
     P = (linked_list*)malloc(sizeof(linked_list*));
     O = (linked_list*)malloc(sizeof(linked_list*));
 
