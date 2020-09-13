@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "spmat.c"
+#include "spmat.h"
 
 typedef struct graph {
 	/* n = |V| number of vertices */
@@ -47,6 +47,16 @@ graph* array_to_graph(int* list_nodes, graph* original_graph, int len);
 
 /*free all the mem that was allocate*/
 void delete_graph(graph* graph);
+
+void reduction_A(graph* new_graph, int len, const int* g, graph* src_graph);
+
+void reduction_K(graph* new_graph, int len);
+
+void compute_f(graph* new_graph);
+
+void compute_B(graph* graph);
+
+void create_spmat (graph* graph, int n);
 
 
 
