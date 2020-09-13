@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "spmat.h"
+#include "graph.h"
 
 
 struct Linked_list{
@@ -67,7 +68,7 @@ void empty_list(node* list_head){
 /* Frees all resources used by A */
 void	free_sm(struct _spmat *A)
 {
-    node** row_lists = malloc(sizeof(node));
+    node** row_lists;
     int i;
     row_lists = (node**) A -> private;
     for (i = 0; i < A -> n; i++)
@@ -102,10 +103,10 @@ void	mult(const struct _spmat *A, const double *v, double *result)
 void create_spmat (graph* graph, int n){
 	int* p;
 	int i = 0;
-	spmat* A = spmat_allocate_list(n);
+	spmat* A = spmat_allocate(n);
 	int* src_A = graph->A;
 	for (p = src_A; p < (src_A + n) ; p++){
-		add_row(A, p, i);
+		add_row(A, (double*)p, i);
 		i++;
 	}
 }
