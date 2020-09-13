@@ -7,11 +7,13 @@
 #include "spmat.h"
 
 
-maximization_delta_Q(int* S, graph* g);
+void maximization_delta_Q(int* S, graph* g);
+void unmoved_initialization(array* unmoved);
+int find_max_index(array* unmoved, array* score);
 
-maximization_delta_Q(int* S, graph* g){
-	int max_index, i, j, k, max_improve, m;
-	double *x, delta_Q, Q_0, *p, *q, *h, *r, max_score, max_improve, l;
+void maximization_delta_Q(int* S, graph* g){
+	int max_index, i, j, k, m, *r, *q, l;
+	double *x, delta_Q, Q_0, *p, *h, max_score, max_improve;
 	array *unmoved, *indices, *unmoved_copy, *score, *improve;
 	x = (double*)malloc(sizeof(double)*g->n);
 	unmoved = (array*)malloc(sizeof(array));
@@ -30,7 +32,7 @@ maximization_delta_Q(int* S, graph* g){
 		q = S;
 		h = x;
 		r = g->A_row_sum;
-		for (p = score; p < (score + g->n); p++){
+		for (p = score->data; p < (score->data + g->n); p++){
 			*p = -2*(*h*(*q)+(pow((*r),2))/g->M);
 			h++;
 			q++;
@@ -55,7 +57,7 @@ maximization_delta_Q(int* S, graph* g){
 					score->data[j] = -score->data[j];
 				}
 				else{
-					score[j] = score[j] - 4*S[j]*S[k]*(g->B[(j*g->n)+k]);
+					score->data[j] = score->data[j] - 4*S[j]*S[k]*(g->B[(j*g->n)+k]);
 				}
 			}
 		}
@@ -69,7 +71,7 @@ maximization_delta_Q(int* S, graph* g){
 			delta_Q = 0;
 		}
 		else{
-			delta_Q = *(improve + l);
+			delta_Q = improve->data[l];
 		}
 	}
 
@@ -101,7 +103,7 @@ double* mult(graph *group,int *S){
     return result;
 }
 
-int is_not_emapty(array* unmoved){
+int is_not_empty(array* unmoved){
 	if (unmoved->size == 0){
 		return 0;
 	}
@@ -119,7 +121,7 @@ int find_max_index(array* unmoved, array* score){
 	return max_k;
 }
 
-unmoved_initialization(array* unmoved){
+void unmoved_initialization(array* unmoved){
 	int i;
 	for (i = 0; i < unmoved->size; i++){
 		unmoved->data[i] = i;

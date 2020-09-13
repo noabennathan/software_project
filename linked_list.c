@@ -31,22 +31,21 @@ void delete_first_node(linked_list* P){
 	free(P->head);
 	P->head = save;
 }
-
-void delete_list(linked_list* P){
-	delete_list_rec(P->head);
-}
-
 void delete_list_rec(Node* node){
 	if (node != NULL){
 		delete_list_rec(node->next);
 		free(node);
 	}
 }
+void delete_list(linked_list* P){
+    delete_list_rec(P->head);
+}
 
 int* list_count(linked_list* P){
 	int* count;
+    Node *node;
 	*count = 0;
-	Node* node = P->head;
+	node = P->head;
 	while (node != NULL){
 		count += 1;
 		node = node->next;

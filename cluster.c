@@ -17,8 +17,9 @@ int main(int argc, char* argv[]){
 	FILE* input_file = fopen(argv[1], "r");
 	FILE* output_file = fopen(argv[2], "w");
 	//assert(argc > 0);
-	linked_list* P, O;
-	Node *g1, *g2, *group;
+	linked_list* P;
+    linked_list *O;
+    Node *g1, *g2, *group;
 	graph* src_graph, g;
 	double* K;
 	int i = 0, *p, first_group, *S;
@@ -35,7 +36,7 @@ int main(int argc, char* argv[]){
 	src_graph = initialize_graph_from_input(input_file);
 
 	/*crates A as spmat*/
-	crate_spmat(src_graph, src_graph->n);
+	create_spmat(src_graph, src_graph->n);
 
 	/*compute f*/
 
@@ -49,8 +50,8 @@ int main(int argc, char* argv[]){
 	while (group != NULL){
 		delete_first_node(P);
 		/*algorithm 4*/
-		maximization_delta_Q(S, group);
-		from_S_to_2_groups(S, g1, g2, group);
+		maximization_delta_Q(S, group->data);
+		from_S_to_2_groups(S, g1, g2, group->data);
 		if (g1->data->n == 0){
 			add_node(O, g2);
 		}
