@@ -8,7 +8,6 @@ typedef struct Node{
 
 typedef struct linked_list{
 	Node* head;
-	Node* tail;
 }linked_list;
 
 void initialize_list(linked_list* P){
@@ -41,12 +40,12 @@ void delete_list(linked_list* P){
 }
 
 int* list_count(linked_list* P){
-	int* count;
+	int *count = NULL;
     Node *node;
 	*count = 0;
 	node = P->head;
 	while (node != NULL){
-		count += 1;
+		*count += 1;
 		node = node->next;
 	}
 	return count;
