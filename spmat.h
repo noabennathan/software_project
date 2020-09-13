@@ -17,7 +17,7 @@ void	add_row (struct _spmat *A, const double *row, int i);
 void	free_sm(struct _spmat *A);
 
 /* Multiplies matrix A by vector v, into result (result is pre-allocated) */
-void	mult(const struct _spmat *A, const double *v, double *result);
+void	mult(struct _spmat *A, double *v, double *result);
 
 
 /* Allocates a new linked-lists sparse matrix of size n */
