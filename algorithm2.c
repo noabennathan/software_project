@@ -22,20 +22,25 @@ double calculate_sbs(graph* group, int* S);
 int* divide_a_group_into_two(Node* g){
     graph *group = g ->data;
     double *eigen_value, *eigen_vector, sBs;
-    int *S, i, *g1_ver, *g2_ver, count = 0;
+    int *S, i, count = 0;
     S = (int*)malloc(sizeof(int) * group -> n);
     eigen_value = (double*)malloc(sizeof(int));
+
+    for (i = 0; i < group ->n; i++)
+    {
+        S[i] = 1;
+    }
 
 
     mat_shift(group); //shifting B
 
     /*line 1*/
-    power_iteration(group, eigen_value, eigen_vector, eigen_value);
+    power_iteration(group, eigen_vector, eigen_value);
 
     /*line 2*/
-    if (!IS_POSITIVE(eigen_value))
+    if (!IS_POSITIVE(*eigen_value))
     {
-        return NULL;
+        return S;
     }
 
     /*line 3*/
@@ -54,34 +59,10 @@ int* divide_a_group_into_two(Node* g){
     sBs = calculate_sbs(group, S);
     if (!IS_POSITIVE(sBs))
     {
-        return NULL;
+        return S;
     }
 
     return S;
-
-    /*line 5
-    g1_ver = (int*)malloc(sizeof(int) * count);
-    g2_ver = (int*)malloc(sizeof(int) * (group->n - count));
-    for (i = 0; i < group->n; i++)
-    {
-        if (S[i] == 1)
-        {
-            g1_ver[j] = group -> ver_list[i];
-            j++;
-        }
-        else
-        {
-            g2_ver[k] = group -> ver_list[i];
-            k++;
-        }
-    }
-
-    g1 -> data = array_to_graph(g1_ver, count);
-    g2 -> data = array_to_graph(g2_ver, (group->n - count));
-    g1 -> next = g2;
-    return g1;
-
-     */
 }
 
 
@@ -117,11 +98,10 @@ void mat_shift(graph* group)
 void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
 {
     /*initializion*/
-    double *b, *nextb, *a_tmp, *k_tmp, *f_tmp, tmp, sum_sk = 0, sum, norma, x, y;
+    double *b, *nextb, *a_tmp, *k_tmp, *f_tmp, *tmp, sum_sk = 0, sum, norma, x, y;
     spmat* A = group->A_spmat;
-    double* K = group->K;
     double* f = group->f;
-    double* A_row_sum = group -> A_row_sum;
+    int* A_row_sum = group -> A_row_sum;
     int diff = 1, i, n = group->n;
 
 
@@ -160,7 +140,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
         for (i = 0; i < n; i++)
         {
             nextb[i] = nextb[i]/norma;
-            if (fabs(nextb - b[i]) > 0.00001)
+            if (fabs(nextb[i] - b[i]) > 0.00001)
                 diff = 1;
         }
 
@@ -195,10 +175,9 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
 double calculate_sbs(graph* group, int* S)
 {
     spmat* A = group->A_spmat;
-    double* K = group->K;
     double* f = group->f;
-    double* A_row_sum = group -> A_row_sum;
-    double *a_tmp, f_tmp, result, a_res = 0, f_res = 0, sum_sk = 0;
+    int* A_row_sum = group -> A_row_sum;
+    double *a_tmp, *f_tmp, a_res = 0, f_res = 0, sum_sk = 0;
     int i, n = group->n;
 
     a_tmp = calloc(n, sizeof(double));
