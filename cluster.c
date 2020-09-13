@@ -14,15 +14,15 @@ void write_to_output(FILE* output_file, linked_list *O);
 
 
 int main(int argc, char* argv[]){
-	FILE* input_file = fopen(argv[1], "r");
-	FILE* output_file = fopen(argv[2], "w");
-	//assert(argc > 0);
-	linked_list* P;
+    linked_list *P;
     linked_list *O;
     Node *g1, *g2, *group;
-	graph* src_graph, g;
-	double* K;
-	int i = 0, *p, first_group, *S;
+    graph* src_graph, g;
+    double* K;
+    int i = 0, *p, first_group, *S;
+    FILE* input_file = fopen(argv[1], "r");
+	FILE* output_file = fopen(argv[2], "w");
+	assert_biiger_zero(argc);
 
     g1 = (Node*)malloc(sizeof(Node));
     g2 = (Node*)malloc(sizeof(Node));
@@ -104,8 +104,8 @@ void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
 			k++;
 		}
 	}
-	g1 -> data = array_to_graph(g1_ver, count);
-	g2 -> data = array_to_graph(g2_ver, (group->n - count));
+	g1 -> data = array_to_graph(g1_ver, group,count);
+	g2 -> data = array_to_graph(g2_ver, group,(group->n - count));
 }
 
 void write_to_output(FILE* output_file, linked_list *O){

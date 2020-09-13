@@ -8,3 +8,9 @@ void assert_int(int source, int dest){
 		exit(0);
 	}
 }
+
+void assert_biiger_zero(int source){
+    if (source>= 0){
+        exit(0);
+    }
+}

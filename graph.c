@@ -9,8 +9,8 @@
 graph* initialize_graph_from_input(FILE* input_file);
 graph* array_to_graph(int* list_nodes, graph* original_graph, int len);
 void reduction_A(graph* new_graph, int len, int* g, graph* src_graph);
-void reduction_K(graph* new_graph, int len, int* g, graph* src_graph);
-void delete_graph(graph* grpah);
+void reduction_K(graph* new_graph, int len);
+void delete_graph(graph* graph);
 void compute_f(graph* new_graph);
 void compute_B(graph* graph);
 
@@ -65,19 +65,17 @@ graph* array_to_graph(int* list_nodes, graph* original_graph, int len){
 	new_graph->n = len;
 	new_graph->ver_list = list_nodes;
 	reduction_A(new_graph, len, list_nodes, original_graph); //updates A, A_row_sum, M
-	reduction_K(new_graph, len, list_nodes, original_graph);//updates K, K_row_sum
+	reduction_K(new_graph, len);//updates K, K_row_sum
 	create_spmat (new_graph, len);
 	compute_f(new_graph);
 	return new_graph;
 }
 
 void reduction_A(graph* new_graph, int len, int* g, graph* src_graph){
-	int i, j, row_sum, *q, *h, k, M, *p;
+	int i, j, row_sum, M;
 	int* src_A = src_graph->A;
 	int n = src_graph->n;
 	int* reduction_A = (int*)malloc(sizeof(int)*len);
-	q = reduction_A;
-	p = g;
 	for (i = 0; i < len; i++){
 		row_sum = 0;
 		for (j = 0; j < len; j++){
@@ -96,7 +94,7 @@ void reduction_A(graph* new_graph, int len, int* g, graph* src_graph){
 	new_graph->M = M;
 }
 
-void reduction_K(graph* new_graph, int len, int* g, graph* src_graph){
+void reduction_K(graph* new_graph, int len){
 	double* K = (double*)malloc(sizeof(double)*len);
 	int M = new_graph->M;
 	int i, j, k, row_sum;
@@ -114,10 +112,10 @@ void reduction_K(graph* new_graph, int len, int* g, graph* src_graph){
 }
 
 void compute_B(graph* graph){
-	double *q, *i;
+	double *q, *i, *B;
 	int *p, n;
 	n = graph->n;
-	double* B = (double*)malloc(sizeof(double)*n*n);
+	B = (double*)malloc(sizeof(double)*n*n);
 	p = graph->A;
 	q = graph->K;
 	i = B;
