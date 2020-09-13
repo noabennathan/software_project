@@ -10,7 +10,7 @@
 
 
 void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group);
-void write_to_output(FILE* output_file, linked_list O);
+void write_to_output(FILE* output_file, linked_list *O);
 
 
 int main(int argc, char* argv[]){
@@ -53,21 +53,21 @@ int main(int argc, char* argv[]){
 		maximization_delta_Q(S, group->data);
 		from_S_to_2_groups(S, g1, g2, group->data);
 		if (g1->data->n == 0){
-			add_node(O, g2);
+			add_node(O, g2->data);
 		}
 		if (g2->data->n == 0){
-			add_node(O, g1);
+			add_node(O, g1->data);
         }
 		else{
 			if(g1->data->n == 1){
-				add_node(O, g1);
+				add_node(O, g1->data);
             }
 			if(g2->data->n == 1){
-				add_node(O, g2);
+				add_node(O, g2->data);
             }
 			else{
-				add_node(P, g1);
-				add_node(P, g2);
+				add_node(P, g1->data);
+				add_node(P, g2->data);
 			}
 		}
 	group = P->head;
@@ -87,7 +87,7 @@ void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
 	for (i = 0; i < group->n; i++)
 	{
 		if (S[i] == 1){
-			count++;
+			count+= 1;
 		}
 	}
 	g1_ver = (int*)malloc(sizeof(int) * count);
@@ -108,19 +108,21 @@ void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
 	g2 -> data = array_to_graph(g2_ver, (group->n - count));
 }
 
-void write_to_output(FILE* output_file, linked_list O){
+void write_to_output(FILE* output_file, linked_list *O){
 	int n, *p, *q, *len;
+    int* ver_list;
 	int *num_of_groups = list_count(O);
+    Node* node;
 	n = fwrite(num_of_groups, sizeof(int), 1, output_file);
 	//assert(n==1);
 	assert_int(n,1);
-	Node* node = O->head;
+	node = O->head;
 	while (node != NULL){
 		*(len) = node->data->n;
 		n = fwrite(len, sizeof(int), 1, output_file);
 		//assert(n==1);
 		assert_int(n,1);
-		int* ver_list = node->data->ver_list;
+		ver_list = node->data->ver_list;
 		n = fwrite(q, sizeof(int), 1, output_file);
 		for(p = ver_list; p < (ver_list + *len); p++){
 			*q = *p;

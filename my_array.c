@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 typedef struct array{
 	int size;
@@ -16,16 +15,11 @@ void allocate_mem_size_n(array *arr, int n){
 	arr->data = new_data;
 }
 
-void add_data(array *arr, double* data){
-	arr->data = data;
-	arr->size = (sizeof(data)/sizeof(double));
-}
-
-void remove_index(array *arr, double index){
+void remove_index(array *arr, int index){
 	int original_size = arr->size;
 	int new_size = original_size-1;
 	int i, j = 0;
-	int* new_data = (int*)malloc(sizeof(double)*sizeof(new_size));
+	double* new_data = (double*)malloc(sizeof(double)*sizeof(new_size));
 	for (i = 0; i < new_size; i++){
 		if (arr->data[i] != index){
 			new_data[j] = i;
