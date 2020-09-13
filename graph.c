@@ -34,7 +34,7 @@ graph* initialize_graph_from_input(FILE* input_file){
 		*(graph->A_row_sum + i) = j; //now A_row_sum[i] = ki the number of neighbors i has
 		assert_int(k,1);
 		//assert(k == 1);
-		curr_vertex_neighbors = (int*) (malloc((*j)*sizeof(int)));
+		curr_vertex_neighbors = (int*) (malloc((j)*sizeof(int)));
 		k = fread(curr_vertex_neighbors, sizeof(int), j, input_file);
 		assert_int(k,j);
 		//assert(k == j);

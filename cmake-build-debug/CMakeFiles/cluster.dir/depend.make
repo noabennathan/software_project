@@ -47,6 +47,7 @@ CMakeFiles/cluster.dir/my_array.c.obj: ../my_array.c
 
 CMakeFiles/cluster.dir/my_assert.c.obj: ../my_assert.c
 
+CMakeFiles/cluster.dir/spmat.c.obj: ../graph.h
 CMakeFiles/cluster.dir/spmat.c.obj: ../spmat.c
 CMakeFiles/cluster.dir/spmat.c.obj: ../spmat.h
 
