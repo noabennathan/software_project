@@ -1,18 +1,18 @@
 #include "linked_list.c"
 #include <math.h>
-#include "my_array.c"
-#include "spmat.h"
+#include "my_array.h"
 
 
 void maximization_delta_Q(int* S, graph* g);
 void unmoved_initialization(array* unmoved);
 int find_max_index(array* unmoved, array* score);
 double* multi(graph *group,int *S);
+int find_max_index_in_improve(array* improve);
 
 void maximization_delta_Q(int* S, graph* g){
-	int max_index, i, j, k, m, *r, *q, l;
-	double *x, delta_Q = 0, Q_0, *p, *h, max_score, max_improve;
-	array *unmoved, *indices, *unmoved_copy, *score, *improve;
+	int i, j, k, *r, *q, l;
+	double *x, delta_Q = 0, *p, *h;
+	array *unmoved, *indices, *score, *improve;
 	x = (double*)malloc(sizeof(double)*g->n);
 	unmoved = (array*)malloc(sizeof(array));
 	indices = (array*)malloc(sizeof(array));
@@ -60,7 +60,7 @@ void maximization_delta_Q(int* S, graph* g){
 			}
 		}
 		/*lines 21-30*/
-		l = find_max_index(unmoved, improve);
+		l = find_max_index_in_improve(improve);
 		for (i = g->n-1; i > l; i--){
 			j = *(indices->data + i);
 			*(S + j) = -*(S + j);
@@ -104,10 +104,12 @@ double* multi(graph *group,int *S){
 int find_max_index(array* unmoved, array* score){
 	int i;
 	double *p, max_score = 0, max_k = 0;
+	p = score->data;
 	for (i = 0; i < unmoved->size; i++){
 		if ((*p >= max_score) && in_array(unmoved, i)){
 			max_k = i;
 		}
+		p++;
 	}
 	return max_k;
 }
@@ -117,5 +119,16 @@ void unmoved_initialization(array* unmoved){
 	for (i = 0; i < unmoved->size; i++){
 		unmoved->data[i] = i;
 	}
+}
+
+int find_max_index_in_improve(array* improve){
+    int i, max_i;
+    double max_imp = 0;
+    for (i = 0; i < improve->size; i++){
+        if (improve->data[i] >= max_imp){
+            max_i = i;
+        }
+    }
+    return max_i;
 }
 
