@@ -1,7 +1,4 @@
 #include "linked_list.c"
-#include "algorithm2.c"
-#include "graph.c"
-#include "graph.h"
 #include <math.h>
 #include "my_array.c"
 #include "spmat.h"

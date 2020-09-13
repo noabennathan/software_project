@@ -1,7 +1,7 @@
 #include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "spmat.c"
+#include "spmat.h"
 #include "my_assert.c"
 
 

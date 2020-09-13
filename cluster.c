@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "graph.c"
 #include "algorithm2.c"
 #include "algorithm4.c"
-#include "linked_list.c"
 #include "my_assert.c"
 
 
