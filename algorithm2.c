@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include "linked_list.h"
 
 #define IS_POSITIVE(X) ((X) > 0.00001)
 
