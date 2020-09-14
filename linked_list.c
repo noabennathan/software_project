@@ -1,14 +1,4 @@
-#include "graph.h"
-
-
-typedef struct Node{
-	graph* data;
-	struct Node* next;
-}Node;
-
-typedef struct linked_list{
-	Node* head;
-}linked_list;
+#include "linked_list.h"
 
 void initialize_list(linked_list* P){
 	P = (linked_list*)malloc(sizeof(linked_list));
