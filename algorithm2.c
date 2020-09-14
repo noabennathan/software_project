@@ -2,16 +2,11 @@
 #include <stdlib.h>
 #include <math.h>
 #include "linked_list.h"
+#include "algorithm2.h"
 #include "spmat.h"
 #include <time.h>
 
 #define IS_POSITIVE(X) ((X) > 0.00001)
-
-
-
-void mat_shift(graph* group);
-void power_iteration(graph* group, double* eigen_vector, double* eigen_value);
-double calculate_sbs(graph* group, int* S);
 
 /*Divides a group into two
  * @param group the group to split
