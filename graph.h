@@ -3,7 +3,7 @@
 #include <math.h>
 #include "spmat.h"
 
-typedef struct graph {
+typedef struct graph{
 	/* n = |V| number of vertices */
 	int n;
 
@@ -32,7 +32,7 @@ typedef struct graph {
 	/*list of row sum of A, A_row_sum[i] = ki*/
 	int* A_row_sum;
 
-} graph;
+}graph;
 
 
 

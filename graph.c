@@ -1,7 +1,7 @@
-#include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "my_assert.c"
+#include "graph.h"
+#include "my_assert.h"
 
 graph* initialize_graph_from_input(FILE* input_file){
 	int k, i, n, j, *q, *p, M = 0, *A, *curr_vertex_neighbors;

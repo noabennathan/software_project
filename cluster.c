@@ -4,7 +4,6 @@
 #include "algorithm4.h"
 #include "my_assert.h"
 
-
 void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group);
 void write_to_output(FILE* output_file, linked_list *O);
 

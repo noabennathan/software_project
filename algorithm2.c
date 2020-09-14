@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "linked_list.h"
-#include "algorithm2.h"
-#include "spmat.h"
 #include <time.h>
 
 #define IS_POSITIVE(X) ((X) > 0.00001)
