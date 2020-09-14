@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "linked_list.c"
+#include "linked_list.h"
 #include "spmat.h"
 #include <time.h>
 
