@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include "linked_list.h"
+#include "algorithm2.h"
 
 #define IS_POSITIVE(X) ((X) > 0.00001)
 
@@ -12,7 +12,7 @@
  */
 
 int* divide_a_group_into_two(Node* g){
-    graph *group = g ->data;
+    graph *group = *g ->data;
     double *eigen_value, *eigen_vector, sBs;
     int *S, i, count = 0;
     S = (int*)malloc(sizeof(int) * group -> n);
@@ -60,7 +60,8 @@ int* divide_a_group_into_two(Node* g){
 }
 void mat_shift(graph* group)
 {
-    int i, C = 0;
+    int i;
+    double C = 0;
     /*calculate the 1-norm*/
     for (i = 0; i < group->n; i++)
     {
@@ -169,11 +170,12 @@ double calculate_sbs(graph* group, int* S)
     a_tmp = calloc(n, sizeof(double));
     f_tmp = calloc(n, sizeof(double));
 
-    mult(A, S, a_tmp);
+    mult(A, (double*)S, a_tmp);
     for (i = 0; i < n; i++)
     {
         f_tmp[i] = S[i] * f[i];
-        sum_sk = sum_sk + (S[i] * A_row_sum[i]); //k_res = sum_sk^2
+        /*k_res = sum_sk^2*/
+        sum_sk = sum_sk + (S[i] * A_row_sum[i]);
     }
     for (i = 0; i < n; i++)
     {

@@ -1,4 +1,4 @@
-#include "linked_list.h"
+#include "algorithm2.h"
 #include <math.h>
 #include "my_array.h"
 
