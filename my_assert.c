@@ -1,6 +1,5 @@
 #include <stdlib.h>
-
-void assert_int(int source, int dest);
+#include "my_assert.h"
 
 void assert_int(int source, int dest){
 	if (source != dest){
@@ -8,7 +7,7 @@ void assert_int(int source, int dest){
 	}
 }
 
-void assert_biiger_zero(int source){
+void assert_bigger_zero(int source){
     if (source>= 0){
         exit(0);
     }

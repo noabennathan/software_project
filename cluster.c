@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "algorithm2.c"
-#include "algorithm4.c"
-#include "my_assert.c"
+#include "algorithm4.h"
+#include "my_assert.h"
 
 
 void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group);
@@ -17,7 +17,7 @@ int main(int argc, char* argv[]){
     int *S;
     FILE* input_file = fopen(argv[1], "r");
 	FILE* output_file = fopen(argv[2], "w");
-	assert_biiger_zero(argc);
+	assert_bigger_zero(argc);
 
     g1 = (Node*)malloc(sizeof(Node*));
     g2 = (Node*)malloc(sizeof(Node*));
