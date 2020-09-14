@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "algorithm2.c"
+#include "algorithm2.h"
 #include "algorithm4.h"
 #include "my_assert.h"
 
