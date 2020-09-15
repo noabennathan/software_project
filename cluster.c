@@ -6,7 +6,6 @@
 void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group);
 void write_to_output(FILE* output_file, linked_list *O);
 
-
 int main(int argc, char* argv[]){
     linked_list *P;
     linked_list *O;
@@ -15,7 +14,9 @@ int main(int argc, char* argv[]){
     int *S;
     FILE* input_file = fopen(argv[1], "r");
 	FILE* output_file = fopen(argv[2], "w");
+    printf("im here 1\n");
 	assert_bigger_zero(argc);
+    printf("im here 2\n");
 
     g1 = (Node*)malloc(sizeof(Node*));
     g2 = (Node*)malloc(sizeof(Node*));
@@ -26,7 +27,7 @@ int main(int argc, char* argv[]){
 
 	/*read input file to struct graph*/
 	src_graph = initialize_graph_from_input(input_file);
-
+    printf("im here 3\n");
 	/*crates A as spmat*/
 	create_spmat(src_graph, src_graph->n);
 
@@ -36,7 +37,7 @@ int main(int argc, char* argv[]){
 	initialize_list(O);
 
 	add_node(P, src_graph);
-
+    printf("im here 4\n");
 	/*algorithm 2 iteration*/
 	P->head = group;
 	while (group != NULL){
@@ -65,6 +66,7 @@ int main(int argc, char* argv[]){
 		}
 	group = P->head;
 	}
+	printf("im here");
 	write_to_output(output_file, O);
 	delete_list(P);
 	delete_list(O);
@@ -106,11 +108,13 @@ void write_to_output(FILE* output_file, linked_list *O){
     int* ver_list;
 	int *num_of_groups = list_count(O);
     Node* node;
+    printf("write to output");
 	n = fwrite(num_of_groups, sizeof(int), 1, output_file);
 	assert_int(n,1);
 	node = O->head;
 	while (node != NULL){
 		*(len) = node->data->n;
+		printf("%d",*len);
 		n = fwrite(len, sizeof(int), 1, output_file);
 		assert_int(n,1);
 		ver_list = node->data->ver_list;
@@ -119,6 +123,7 @@ void write_to_output(FILE* output_file, linked_list *O){
 		for(p = ver_list; p < (ver_list + *len); p++){
 			*q = *p;
 			n = fwrite(q, sizeof(int), 1, output_file);
+            printf("%d",*q);
 			assert_int(n,1);
 		}
 		node = node->next;
