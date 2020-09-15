@@ -18,6 +18,7 @@ spmat* spmat_allocate(int n)
     spmat *sm = malloc(sizeof(spmat));
     spnode** row_lists = (spnode**)malloc(n * sizeof(spnode));
     sm -> private = row_lists;
+    sm ->n = n;
     return sm;
 }
 
