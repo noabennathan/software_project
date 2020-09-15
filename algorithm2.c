@@ -18,8 +18,6 @@ int* divide_a_group_into_two(Node* g){
     S = (int*)malloc(sizeof(int) * group -> n);
     eigen_value = (double*)malloc(sizeof(int));
     eigen_vector = (double*)malloc(group->n * sizeof(int));
-    printf("checkin the graph data\n");
-    printf("%d\n", group->n);
 
     for (i = 0; i < group ->n; i++)
     {
@@ -28,7 +26,7 @@ int* divide_a_group_into_two(Node* g){
 
 
     mat_shift(group);
-    printf("finish mat shift");
+    printf("finish mat shift\n");
     /*line 1*/
     power_iteration(group, eigen_vector, eigen_value);
 
@@ -64,7 +62,6 @@ void mat_shift(graph* group)
     int i;
     double C = 0;
     /*calculate the 1-norm*/
-    printf("in mat shift");
     for (i = 0; i < group->n; i++)
     {
         if(group->A_row_sum[i] - group->K_row_sum[i] - group->f[i] > C)
@@ -74,7 +71,7 @@ void mat_shift(graph* group)
     {
         group->f[i] = group->f[i] + C;
     }
-    printf("finish mat shift");
+    printf("finish mat shift\n");
 
 }
 
@@ -88,6 +85,8 @@ void mat_shift(graph* group)
 */
 void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
 {
+    /*delete j after finish debugging*/
+    int j;
     /*initializion*/
     double *b, *nextb, *a_tmp, *k_tmp, *f_tmp, *tmp, sum_sk = 0, sum, norma, x, y;
     spmat* A = group->A_spmat;
@@ -97,7 +96,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
     printf("power iteration\n");
 
 
-    srand(time(NULL));
+    srand(time(0));
 
     b = eigen_vector;
     nextb = calloc(n, sizeof(double));
@@ -109,8 +108,13 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
     {
         b[i] = rand();
     }
-
     /*in this loop we find the leading eigenvector */
+    /*delete after debug*/
+    mult(A, b, a_tmp);
+    for( j = 0; j < group->n; j++){
+        printf("%f\n, %f\n", b[j],a_tmp[j]);
+    }
+
     while (diff == 1)
     {
         diff =0;
@@ -140,6 +144,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
         b = nextb;
         nextb = tmp;
     }
+    printf("finish mult\n");
 
 
     /*this section finds the eigenvalue matching the eigenvector we found*/
