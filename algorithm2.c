@@ -64,16 +64,17 @@ void mat_shift(graph* group)
     int i;
     double C = 0;
     /*calculate the 1-norm*/
+    printf("in mat shift");
     for (i = 0; i < group->n; i++)
     {
         if(group->A_row_sum[i] - group->K_row_sum[i] - group->f[i] > C)
-            C = group->A_row_sum[i] - group->K_row_sum[i] - group->f[i];
+            C = group->A_row_sum[i] + group->K_row_sum[i] + group->f[i];
     }
     for (i = 0; i < group->n; i++)
     {
         group->f[i] = group->f[i] + C;
     }
-    printf("finish mat shift\n");
+    printf("finish mat shift");
 
 }
 
@@ -113,9 +114,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
     while (diff == 1)
     {
         diff =0;
-        printf("before mult\n");
         mult(A, b, a_tmp);
-        printf("after mult");
         for (i = 0; i < n; i++)
         {
             f_tmp[i] = b[i] * f[i];

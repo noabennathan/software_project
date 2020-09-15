@@ -56,6 +56,7 @@ graph* initialize_graph_from_input(FILE* input_file){
 		}
 		graph->K_row_sum[i] = k_sum;
 		i++;
+		j = 0;
 	}
 	graph->K = K;
 	compute_B(graph);
