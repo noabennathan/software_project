@@ -28,7 +28,7 @@ int* divide_a_group_into_two(Node* g){
 
 
     mat_shift(group);
-
+    printf("finish mat shift");
     /*line 1*/
     power_iteration(group, eigen_vector, eigen_value);
 
@@ -64,6 +64,7 @@ void mat_shift(graph* group)
     int i;
     double C = 0;
     /*calculate the 1-norm*/
+    printf("in mat shift");
     for (i = 0; i < group->n; i++)
     {
         if(group->A_row_sum[i] + group->K_row_sum[i] + group->f[i] > C)
