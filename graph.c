@@ -170,4 +170,5 @@ void create_spmat (graph* graph, int n){
         add_row(A, (double*)p, i);
         i++;
     }
+    graph->A_spmat = A;
 }
