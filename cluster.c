@@ -40,6 +40,7 @@ int main(int argc, char* argv[]){
 	/*algorithm 2 iteration*/
 	P->head = group;
 	while (group != NULL){
+        S = divide_a_group_into_two(group);
 		delete_first_node(P);
 		/*algorithm 4*/
 		maximization_delta_Q(S, group->data);
@@ -101,7 +102,7 @@ void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
 }
 
 void write_to_output(FILE* output_file, linked_list *O){
-	int n, *p, *q, *len;
+	int n, *p, *q = NULL, *len = NULL;
     int* ver_list;
 	int *num_of_groups = list_count(O);
     Node* node;

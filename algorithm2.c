@@ -12,7 +12,7 @@
  */
 
 int* divide_a_group_into_two(Node* g){
-    graph *group = *g ->data;
+    graph *group = g ->data;
     double *eigen_value, *eigen_vector, sBs;
     int *S, i, count = 0;
     S = (int*)malloc(sizeof(int) * group -> n);

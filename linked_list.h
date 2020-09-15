@@ -1,7 +1,7 @@
 #include "graph.h"
 
 typedef struct Node{
-    graph **data;
+    graph *data;
     struct Node* next;
 }Node;
 
