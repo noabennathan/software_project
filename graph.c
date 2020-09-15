@@ -10,11 +10,15 @@ graph* initialize_graph_from_input(FILE* input_file){
 
 	graph = malloc(sizeof(*graph));
 	k = fread(&n, sizeof(int), 1, input_file);
-	printf("im here 3\n");
 	assert_int(k,1);
-    printf("im here 4\n");
 	graph->n = n;
+	printf("n = %d", n);
 	A = (int*)malloc((n*n*sizeof(int)));
+	for(i = 0; i < n; i++){
+	    for (j = 0; j < n; j++){
+	        A[n*i + j] = 0;
+	    }
+	}
 
 	graph->A_row_sum = (int*)malloc(n*sizeof(int));
 
@@ -53,6 +57,7 @@ graph* initialize_graph_from_input(FILE* input_file){
     printf("finish compute B\n");
 	compute_f(graph);
 	printf("finish initiliaze graph\n");
+	printf("%f\n", graph->f[0]);
 	return graph;
 }
 
@@ -116,9 +121,10 @@ void compute_B(graph* graph){
     printf("in compute B 2\n");
 	q = graph->K;
 	i = B;
-    printf("in compute B 3\n");
+    printf("printing i\n");
 	for(p = graph->A; p < (graph->A+(n*n)); p++){
 		*i = *p-*q;
+		printf("%f\n", *i);
 		q++;
 		i++;
 	}
