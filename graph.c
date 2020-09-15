@@ -5,7 +5,7 @@
 
 graph* initialize_graph_from_input(FILE* input_file){
 	int k, i, n, j, *q, *p, M = 0, *A, *curr_vertex_neighbors;
-	double  *K;
+	double  *K, k_sum, r;
 	graph* graph;
 
 	graph = malloc(sizeof(*graph));
@@ -46,10 +46,14 @@ graph* initialize_graph_from_input(FILE* input_file){
 	i = 0;
 	for(p = graph->A_row_sum; p<(graph->A_row_sum + n); p++){
 	    j = 0;
+	    k_sum = 0;
 		for(q = graph->A_row_sum; q<(graph->A_row_sum + n); q++){
-			*(K + (i*n) +j) = (double)((*q)*(*p))/M;
+		    r = (double)((*q)*(*p))/M;
+			*(K + (i*n) +j) = r;
+			k_sum += r;
 			j++;
 		}
+		graph->K_row_sum[i] = k_sum;
 		i++;
 	}
 	graph->K = K;

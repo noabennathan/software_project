@@ -74,6 +74,7 @@ void mat_shift(graph* group)
     {
         group->f[i] = group->f[i] + C;
     }
+    printf("finish mat shift");
 
 }
 
