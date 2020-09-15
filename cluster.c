@@ -12,7 +12,8 @@ int main(int argc, char* argv[]){
     Node *g1, *g2, *group;
     graph* src_graph;
     int *S;
-    FILE* input_file = fopen(argv[1], "r");
+    FILE* input_file = fopen(argv[1], "rb");
+
 	FILE* output_file = fopen(argv[2], "w");
     printf("im here 1\n");
 	assert_bigger_zero(argc);
@@ -27,7 +28,7 @@ int main(int argc, char* argv[]){
 
 	/*read input file to struct graph*/
 	src_graph = initialize_graph_from_input(input_file);
-    printf("im here 3\n");
+    printf("im here again\n");
 	/*crates A as spmat*/
 	create_spmat(src_graph, src_graph->n);
 
@@ -37,11 +38,14 @@ int main(int argc, char* argv[]){
 	initialize_list(O);
 
 	add_node(P, src_graph);
-    printf("im here 4\n");
 	/*algorithm 2 iteration*/
-	P->head = group;
+    group = P->head;
+	printf("checkin the add node\n");
+	printf("%d\n",group->data->n);
 	while (group != NULL){
+        printf("im in algorithm 2\n");
         S = divide_a_group_into_two(group);
+        printf("finish algorithm 2");
 		delete_first_node(P);
 		/*algorithm 4*/
 		maximization_delta_Q(S, group->data);
@@ -66,7 +70,7 @@ int main(int argc, char* argv[]){
 		}
 	group = P->head;
 	}
-	printf("im here");
+	printf("write to output\n");
 	write_to_output(output_file, O);
 	delete_list(P);
 	delete_list(O);

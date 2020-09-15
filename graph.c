@@ -10,20 +10,25 @@ graph* initialize_graph_from_input(FILE* input_file){
 
 	graph = malloc(sizeof(*graph));
 	k = fread(&n, sizeof(int), 1, input_file);
+	printf("im here 3\n");
 	assert_int(k,1);
+    printf("im here 4\n");
 	graph->n = n;
 	A = (int*)malloc((n*n*sizeof(int)));
 
-	graph->A_row_sum = (int*)malloc(sizeof(int)*n);
+	graph->A_row_sum = (int*)malloc(n*sizeof(int));
 
 	/* create A and calculate M */
 	for (i = 0; i < n; i++){
 		k = fread(&j, sizeof(int), 1, input_file);
+        printf("im here 5\n");
         assert_int(k,1);
 		*(graph->A_row_sum + i) = j;
 		curr_vertex_neighbors = (int*) (malloc((j)*sizeof(int)));
 		k = fread(curr_vertex_neighbors, sizeof(int), j, input_file);
+		printf("before out\n");
 		assert_int(k,j);
+		printf("after out\n");
 		for (q = curr_vertex_neighbors; q<(curr_vertex_neighbors + j); q++){
 			*(A + (i*n) + (*q)) = 1;
 			M += 1;
@@ -31,21 +36,23 @@ graph* initialize_graph_from_input(FILE* input_file){
 		graph->M=M;
 	}
     graph->A = A;
-
+    printf("im here 6\n");
 	/*builds K*/
 	K = (double*)malloc(n*n*sizeof(double));
 	i = 0;
-	j = 0;
 	for(p = graph->A_row_sum; p<(graph->A_row_sum + n); p++){
+	    j = 0;
 		for(q = graph->A_row_sum; q<(graph->A_row_sum + n); q++){
-			*(K + (i*n) +j) = ((*q)*(*p))/M;
+			*(K + (i*n) +j) = (double)((*q)*(*p))/M;
 			j++;
 		}
 		i++;
 	}
 	graph->K = K;
 	compute_B(graph);
+    printf("finish compute B\n");
 	compute_f(graph);
+	printf("finish initiliaze graph\n");
 	return graph;
 }
 
@@ -104,9 +111,12 @@ void compute_B(graph* graph){
 	double *q, *i, *B;
 	int *p, n;
 	n = graph->n;
+    printf("in compute B 1\n");
 	B = (double*)malloc(sizeof(double)*n*n);
+    printf("in compute B 2\n");
 	q = graph->K;
 	i = B;
+    printf("in compute B 3\n");
 	for(p = graph->A; p < (graph->A+(n*n)); p++){
 		*i = *p-*q;
 		q++;

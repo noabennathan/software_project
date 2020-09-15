@@ -18,7 +18,8 @@ int* divide_a_group_into_two(Node* g){
     S = (int*)malloc(sizeof(int) * group -> n);
     eigen_value = (double*)malloc(sizeof(int));
     eigen_vector = (double*)malloc(group->n * sizeof(int));
-
+    printf("checkin the graph data\n");
+    printf("%d\n", group->n);
 
     for (i = 0; i < group ->n; i++)
     {
@@ -91,6 +92,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
     double* f = group->f;
     int* A_row_sum = group -> A_row_sum;
     int diff = 1, i, n = group->n;
+    printf("power iteration\n");
 
 
     srand(time(NULL));
