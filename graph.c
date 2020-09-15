@@ -43,6 +43,7 @@ graph* initialize_graph_from_input(FILE* input_file){
     printf("im here 6\n");
 	/*builds K*/
 	K = (double*)malloc(n*n*sizeof(double));
+	graph->K_row_sum = (double*)malloc(graph->n*sizeof(double));
 	i = 0;
 	for(p = graph->A_row_sum; p<(graph->A_row_sum + n); p++){
 	    j = 0;
