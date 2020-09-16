@@ -56,7 +56,7 @@ printf("\n");
 	while (group != NULL){
         S = divide_a_group_into_two(group);
         printf("finish algorithm 2\n");
-        printf("----------S = ----------------\n");
+        printf("----------S before = ----------------\n");
         for (i = 0; i < group->data->n; i++){
             printf("%d ",S[i]);
         }

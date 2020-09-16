@@ -126,6 +126,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
         }
         norma = sqrt(sum);
         sum = 0;
+        sum_sk = 0;
 
         for (i = 0; i < n; i++)
         {
