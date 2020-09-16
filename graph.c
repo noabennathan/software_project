@@ -4,7 +4,7 @@
 #include "my_assert.h"
 
 graph* initialize_graph_from_input(FILE* input_file){
-	int k, i, n, j, *q, *p, M = 0, *A, *curr_vertex_neighbors;
+	int k, i, n, j, *q, *p, M = 0, *A, *curr_vertex_neighbors, m;
 	double  *K, k_sum, r;
 	graph* graph;
 
@@ -12,27 +12,26 @@ graph* initialize_graph_from_input(FILE* input_file){
 	k = fread(&n, sizeof(int), 1, input_file);
 	assert_int(k,1);
 	graph->n = n;
-	printf("n = %d", n);
 	A = (int*)malloc((n*n*sizeof(int)));
 	for(i = 0; i < n; i++){
 	    for (j = 0; j < n; j++){
 	        A[n*i + j] = 0;
 	    }
 	}
-
+	graph->ver_list = malloc((sizeof(int)*n));
+	for (m = 0; m <n; m++){
+	    graph->ver_list[m] = m;
+	}
 	graph->A_row_sum = (int*)malloc(n*sizeof(int));
 
 	/* create A and calculate M */
 	for (i = 0; i < n; i++){
-		k = fread(&j, sizeof(int), 1, input_file);
-        printf("im here 5\n");
+		k = fread(&j, sizeof(int), 1, input_file);;
         assert_int(k,1);
 		*(graph->A_row_sum + i) = j;
 		curr_vertex_neighbors = (int*) (malloc((j)*sizeof(int)));
 		k = fread(curr_vertex_neighbors, sizeof(int), j, input_file);
-		printf("before out\n");
 		assert_int(k,j);
-		printf("after out\n");
 		for (q = curr_vertex_neighbors; q<(curr_vertex_neighbors + j); q++){
 			*(A + (i*n) + (*q)) = 1;
 			M += 1;
@@ -40,7 +39,6 @@ graph* initialize_graph_from_input(FILE* input_file){
 		graph->M=M;
 	}
     graph->A = A;
-    printf("im here 6\n");
 	/*builds K*/
 	K = (double*)malloc(n*n*sizeof(double));
 	graph->K_row_sum = (double*)malloc(graph->n*sizeof(double));
@@ -60,10 +58,7 @@ graph* initialize_graph_from_input(FILE* input_file){
 	}
 	graph->K = K;
 	compute_B(graph);
-    printf("finish compute B\n");
 	compute_f(graph);
-	printf("finish initiliaze graph\n");
-	printf("%f\n", graph->f[0]);
 	return graph;
 }
 
@@ -73,6 +68,7 @@ graph* array_to_graph(int* list_nodes, graph* original_graph, int len){
 	new_graph->ver_list = list_nodes;
 	reduction_A(new_graph, len, list_nodes, original_graph);
 	reduction_K(new_graph, len);
+    compute_B(new_graph);
 	create_spmat (new_graph, len);
 	compute_f(new_graph);
 	return new_graph;
@@ -82,7 +78,8 @@ void reduction_A(graph* new_graph, int len, const int* g, graph* src_graph){
 	int i, j, row_sum, M = 0;
 	int* src_A = src_graph->A;
 	int n = src_graph->n;
-	int* reduction_A = (int*)malloc(sizeof(int)*len);
+	int* reduction_A = (int*)malloc(sizeof(int)*len*len);
+	new_graph->A_row_sum = malloc((sizeof(int))*len);
 	for (i = 0; i < len; i++){
 		row_sum = 0;
 		for (j = 0; j < len; j++){
@@ -92,7 +89,7 @@ void reduction_A(graph* new_graph, int len, const int* g, graph* src_graph){
 				row_sum +=1;
 			}
 			else{
-				reduction_A[i*n + j] = 0;
+				reduction_A[i*len + j] = 0;
 			}
 		}
 		new_graph->A_row_sum[i] = row_sum;
@@ -102,10 +99,12 @@ void reduction_A(graph* new_graph, int len, const int* g, graph* src_graph){
 }
 
 void reduction_K(graph* new_graph, int len){
-	double* K = (double*)malloc(sizeof(double)*len);
+	double* K;
 	int M = new_graph->M;
 	int i, j, k, row_sum;
 	int* degrees = new_graph->A_row_sum;
+	new_graph->K_row_sum = malloc((len*sizeof(double)));
+	K = calloc(len*len,sizeof(double));
 	for (i = 0; i < len; i++){
 		row_sum = 0;
 		for (j = 0; j < len; j++){
@@ -122,15 +121,11 @@ void compute_B(graph* graph){
 	double *q, *i, *B;
 	int *p, n;
 	n = graph->n;
-    printf("in compute B 1\n");
 	B = (double*)malloc(sizeof(double)*n*n);
-    printf("in compute B 2\n");
 	q = graph->K;
 	i = B;
-    printf("printing i\n");
 	for(p = graph->A; p < (graph->A+(n*n)); p++){
 		*i = *p-*q;
-		printf("%f\n", *i);
 		q++;
 		i++;
 	}
@@ -139,16 +134,18 @@ void compute_B(graph* graph){
 
 void compute_f(graph* graph){
 	int i, j, n = graph->n;
-	double *f, sum;
+	double *f, sum = 0, x;
 	f = (double*)malloc(sizeof(double)*n);
-	for(i = 0;i < n; i++){
-	    sum = 0;
-	    for (j = 0; j < n; j++){
-	        sum += graph->B[n*i + j];
-	    }
+	for(i = 0;i < n; ++i){
+	    for (j = 0; j < n; ++j){
+	        x = graph->B[n*i + j];
+            sum += x;
+        }
 	    f[i] = sum;
+        sum = 0;
 	}
 	graph->f = f;
+
 }
 
 void delete_graph(graph* graph){
@@ -171,7 +168,7 @@ void create_spmat (graph* graph, int n){
         add_row(A,p, i);
         i++;
     }
-    printSpmat(A);
     graph->A_spmat = A;
-
+    printf("-----------spmat-------------\n");
+    printSpmat(A);
 }

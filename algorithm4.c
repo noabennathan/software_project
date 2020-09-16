@@ -14,7 +14,14 @@ void maximization_delta_Q(int* S, graph* g){
 	allocate_mem_size_n(indices, g->n);
 	allocate_mem_size_n(score, g->n);
 	allocate_mem_size_n(improve, g->n);
-    printf("algorithm 4");
+
+	/*
+	printf("S before = \n");
+	for (m = 0; m < g->n; m++){
+	    printf("%d  ", S[m]);
+	}
+	printf("\n");
+*/
 	while (delta_Q > 0){
 		unmoved_initialization(unmoved);
 		x = multi(g,S);
@@ -70,6 +77,7 @@ void maximization_delta_Q(int* S, graph* g){
 	array_delete(score);
 	array_delete(improve);
 	free(x);
+	printf("finish algorithm 4\n");
 
 }
 
