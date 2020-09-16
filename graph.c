@@ -163,14 +163,14 @@ void delete_graph(graph* graph){
 }
 
 void create_spmat (graph* graph, int n){
-    int* p;
-    int i = 0;
+    int i, j;
     spmat* A = spmat_allocate(n);
-    int* src_A = graph->A;
-    for (p = src_A; p < (src_A + n) ; p +=n){
-        add_row(A, p, i);
-        i++;
+    int* row = malloc(sizeof(int)*n);
+    for (i = 0; i < graph->n; i++){
+        for (j =0; j < graph->n;j++){
+            row[j] = graph->A[i*n+j];
+        }
+        add_row(A, row, i);
     }
-    graph->A_spmat = A;
-
+   graph->A_spmat = A;
 }

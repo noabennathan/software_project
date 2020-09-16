@@ -19,6 +19,7 @@ spmat* spmat_allocate(int n)
     spnode** row_lists = (spnode**)malloc(n * sizeof(spnode));
     sm -> private = row_lists;
     sm ->n = n;
+
     return sm;
 }
 
@@ -32,21 +33,38 @@ void	add_row (struct _spmat *A, int *row, int i)
     int n = A -> n;
     spnode* head = NULL;
     spnode* tail = NULL;
+    spnode* new_node = NULL;
     spnode** row_lists = (spnode**) A -> private;
-    int j, k;
-    for (k = 0; k<A->n; k++){
-        printf("%d ",row[k]);
-    }
-    printf("\n");
+    int j;
+
     for (j = 0; j < n; j++)
     {
         if (row[j] != 0)
         {
             if (head == NULL)
             {
+                head = malloc(sizeof(spnode));
+                head->val = 1;
+                head->col = j;
+                head->next = NULL;
+                tail = head;
+            }
+            else{
+                new_node = malloc(sizeof(spnode));
+                new_node->val = 1;
+                new_node->col = j;
+                new_node->next = NULL;
+                tail->next = new_node;
+                tail = new_node;
+            }
+        }
+
+
+                /* original code
                 head = tail = malloc(sizeof(spnode));
-                /*i add this*/
+                i add this
                 tail->next = NULL;
+
             }
             else
             {
@@ -54,13 +72,21 @@ void	add_row (struct _spmat *A, int *row, int i)
                 tail = tail->next;
                 tail->val = row[j];
                 tail->col = j;
-                /*i add this part*/
+
                 tail->next = NULL;
             }
+            */
         }
-    }
     row_lists[i] = head;
-}
+    printf("-------printing spmat row--------\n");
+    while(head != NULL){
+        printf("%f  ",head->val);
+        printf("%d \n", head->col);
+        head = head->next;
+    }
+    }
+
+
 
 
 void empty_list(spnode* list_head){
@@ -101,7 +127,6 @@ void	mult(struct _spmat *A, const double *v, double *result)
         while(temp != NULL)
         {
             sum = sum + (temp->val * v[temp->col]);
-            printf("sum = %f\n", sum);
             temp = temp->next;
         }
         result[i] = sum;
