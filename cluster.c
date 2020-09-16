@@ -64,6 +64,11 @@ printf("\n");
 		/*delete_first_node(P);*/
 		/*algorithm 4*/
 		maximization_delta_Q(S, group->data);
+        printf("----------S after = ----------------\n");
+        for (i = 0; i < group->data->n; i++){
+            printf("%d ",S[i]);
+        }
+        printf("\n");
 		from_S_to_2_groups(S, g1, g2, group->data);
 		if (g1->data->n == 0){
 			add_node(O, g2->data);
