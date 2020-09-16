@@ -81,7 +81,7 @@ double* multi(graph *group,int *S){
     double *a_tmp = calloc(n, sizeof(double ));
     double *result = calloc(n, sizeof(double));
 
-    mult(A, (double*)S, a_tmp);
+    mult(A, (double *)S, a_tmp);
     for (i = 0; i < n; i++)
     {
         sum_sk = sum_sk + (S[i] * group ->A_row_sum[i]);
