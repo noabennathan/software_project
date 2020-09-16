@@ -11,7 +11,7 @@ typedef struct _spmat {
 
 /* Adds row i the matrix. Called before any other call,
  * exactly n times in order (i = 0 to n-1) */
-void	add_row (struct _spmat *A, const double *row, int i);
+void	add_row (struct _spmat *A, int *row, int i);
 
 /* Frees all resources used by A */
 void	free_sm(struct _spmat *A);

@@ -87,7 +87,7 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
 {
     /*delete j after finish debugging*/
     int j;
-    /*initializion*/
+
     double *b, *nextb, *a_tmp, *k_tmp, *f_tmp, *tmp, sum_sk = 0, sum, norma, x, y;
     spmat* A = group->A_spmat;
     double* f = group->f;
@@ -109,8 +109,8 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
         b[i] = rand();
     }
     /*in this loop we find the leading eigenvector */
+
     /*delete after debug*/
-    mult(A, b, a_tmp);
     for( j = 0; j < group->n; j++){
         printf("%f\n, %f\n", b[j],a_tmp[j]);
     }
@@ -118,7 +118,9 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
     while (diff == 1)
     {
         diff =0;
+        printf("before mult\n");
         mult(A, b, a_tmp);
+        printf("after mult\n");
         for (i = 0; i < n; i++)
         {
             f_tmp[i] = b[i] * f[i];

@@ -7,6 +7,8 @@ void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group);
 void write_to_output(FILE* output_file, linked_list *O);
 
 int main(int argc, char* argv[]){
+    /*delete after debug*/
+    int i,j;
     linked_list *P;
     linked_list *O;
     Node *g1, *g2, *group;
@@ -28,11 +30,17 @@ int main(int argc, char* argv[]){
 
 	/*read input file to struct graph*/
 	src_graph = initialize_graph_from_input(input_file);
+	printf("----print A-----");
+	for (i = 0; i < src_graph->n; i++){
+	    for (j = 0; j<src_graph->n; j++){
+	        printf("%d ", src_graph->A[i*src_graph->n + j]);
+	    }
+	    printf("\n");
+	}
+
     printf("im here again\n");
 	/*crates A as spmat*/
 	create_spmat(src_graph, src_graph->n);
-
-	/*compute f*/
 
 	initialize_list(P);
 	initialize_list(O);

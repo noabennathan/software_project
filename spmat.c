@@ -27,13 +27,17 @@ spmat* spmat_allocate(int n)
 
 /* Adds row i the matrix. Called before any other call,
 	 * exactly n times in order (i = 0 to n-1) */
-void	add_row (struct _spmat *A, const double *row, int i)
+void	add_row (struct _spmat *A, int *row, int i)
 {
     int n = A -> n;
     spnode* head = NULL;
     spnode* tail = NULL;
     spnode** row_lists = (spnode**) A -> private;
-    int j;
+    int j, k;
+    for (k = 0; k<A->n; k++){
+        printf("%d ",row[k]);
+    }
+    printf("\n");
     for (j = 0; j < n; j++)
     {
         if (row[j] != 0)
@@ -41,6 +45,8 @@ void	add_row (struct _spmat *A, const double *row, int i)
             if (head == NULL)
             {
                 head = tail = malloc(sizeof(spnode));
+                /*i add this*/
+                tail->next = NULL;
             }
             else
             {
@@ -48,6 +54,8 @@ void	add_row (struct _spmat *A, const double *row, int i)
                 tail = tail->next;
                 tail->val = row[j];
                 tail->col = j;
+                /*i add this part*/
+                tail->next = NULL;
             }
         }
     }
@@ -93,6 +101,7 @@ void	mult(struct _spmat *A, const double *v, double *result)
         while(temp != NULL)
         {
             sum = sum + (temp->val * v[temp->col]);
+            printf("sum = %f\n", sum);
             temp = temp->next;
         }
         result[i] = sum;
