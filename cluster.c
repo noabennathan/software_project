@@ -11,10 +11,13 @@ int main(int argc, char* argv[]){
     linked_list *O;
     Node *g1, *g2, *group;
     graph* src_graph;
-    int *S, i;
+    int *S;
     FILE* input_file = fopen(argv[1], "rb");
+
 	FILE* output_file = fopen(argv[2], "w");
+    printf("im here 1\n");
 	assert_bigger_zero(argc);
+    printf("im here 2\n");
 
     g1 = (Node*)malloc(sizeof(Node*));
     g2 = (Node*)malloc(sizeof(Node*));
@@ -25,8 +28,11 @@ int main(int argc, char* argv[]){
 
 	/*read input file to struct graph*/
 	src_graph = initialize_graph_from_input(input_file);
+    printf("im here again\n");
 	/*crates A as spmat*/
 	create_spmat(src_graph, src_graph->n);
+
+	/*compute f*/
 
 	initialize_list(P);
 	initialize_list(O);
@@ -34,34 +40,13 @@ int main(int argc, char* argv[]){
 	add_node(P, src_graph);
 	/*algorithm 2 iteration*/
     group = P->head;
-    /*
-S = malloc(sizeof(int)*src_graph->n);
-for (i = 0; i < src_graph->n; i++) {
-    if (i % 3 == 0) {
-        S[i] = 1;
-    } else {
-        S[i] = -1;
-    }
-}
-
-printf("---------algorithm 4----------\n");
-maximization_delta_Q(S, group->data);
-printf("S after = \n");
-for (m = 0; m < src_graph->n; m++){
-    printf("%d  ", S[m]);
-}
-printf("\n");
- */
-
+	printf("checkin the add node\n");
+	printf("%d\n",group->data->n);
 	while (group != NULL){
+        printf("im in algorithm 2\n");
         S = divide_a_group_into_two(group);
-        printf("finish algorithm 2\n");
-        printf("----------S before = ----------------\n");
-        for (i = 0; i < group->data->n; i++){
-            printf("%d ",S[i]);
-        }
-        printf("\n");
-		/*delete_first_node(P);*/
+        printf("finish algorithm 2");
+		delete_first_node(P);
 		/*algorithm 4*/
 		maximization_delta_Q(S, group->data);
         printf("----------S after = ----------------\n");
@@ -138,6 +123,7 @@ void write_to_output(FILE* output_file, linked_list *O){
 	node = O->head;
 	while (node != NULL){
 		*(len) = node->data->n;
+		printf("%d",*len);
 		n = fwrite(len, sizeof(int), 1, output_file);
 		assert_int(n,1);
 		ver_list = node->data->ver_list;
@@ -146,6 +132,7 @@ void write_to_output(FILE* output_file, linked_list *O){
 		for(p = ver_list; p < (ver_list + *len); p++){
 			*q = *p;
 			n = fwrite(q, sizeof(int), 1, output_file);
+            printf("%d",*q);
 			assert_int(n,1);
 		}
 		node = node->next;
