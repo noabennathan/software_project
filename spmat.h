@@ -23,5 +23,5 @@ void	mult(struct _spmat *A, const double *v, double *result);
 /* Allocates a new linked-lists sparse matrix of size n */
 spmat* spmat_allocate(int n);
 
-
+void printSpmat(spmat *spm);
 #endif

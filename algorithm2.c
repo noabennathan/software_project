@@ -65,7 +65,7 @@ void mat_shift(graph* group)
     for (i = 0; i < group->n; i++)
     {
         if(group->A_row_sum[i] - group->K_row_sum[i] - group->f[i] > C)
-            C = group->A_row_sum[i] + group->K_row_sum[i] + group->f[i];
+            C = group->A_row_sum[i] - group->K_row_sum[i] - group->f[i];
     }
     for (i = 0; i < group->n; i++)
     {
