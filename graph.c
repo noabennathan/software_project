@@ -167,10 +167,11 @@ void create_spmat (graph* graph, int n){
     int i = 0;
     spmat* A = spmat_allocate(n);
     int* src_A = graph->A;
-    for (p = src_A; p < (src_A + n) ; p +=n){
+    for (p = src_A; p < (src_A + n*n) ; p +=n){
         add_row(A,p, i);
         i++;
     }
+    printSpmat(A);
     graph->A_spmat = A;
 
 }
