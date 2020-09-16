@@ -16,7 +16,7 @@ typedef struct sp_Linked_list spnode;
 spmat* spmat_allocate(int n)
 {
     spmat *sm = malloc(sizeof(spmat));
-    spnode** row_lists = (spnode**)malloc(n * sizeof(spnode));
+    spnode** row_lists = (spnode**)malloc(n * sizeof(spnode*));
     sm -> private = row_lists;
     sm ->n = n;
     return sm;
@@ -27,7 +27,7 @@ spmat* spmat_allocate(int n)
 
 /* Adds row i the matrix. Called before any other call,
 	 * exactly n times in order (i = 0 to n-1) */
-void	add_row (struct _spmat *A, const double *row, int i)
+void	add_row (struct _spmat *A, int *row, int i)
 {
     int n = A -> n;
     spnode* head = NULL;
@@ -51,6 +51,7 @@ void	add_row (struct _spmat *A, const double *row, int i)
             }
         }
     }
+    tail->next = NULL;
     row_lists[i] = head;
 }
 
@@ -99,5 +100,21 @@ void	mult(struct _spmat *A, const double *v, double *result)
     }
 }
 
-
+void printSpmat(spmat *spm) {
+    int i, j, col;
+    spnode** rows = (spnode**) spm->private;
+    for (i = 0; i < spm->n; i++) {
+        spnode* node = rows[i];
+        for (j = 0; j < spm->n; j++) {
+            col = node != NULL ? node->col : spm->n;
+            if (j < col) {
+                printf("%d ", 0);
+            } else {
+                printf("%d ", (int) node->val);
+                node = node->next;
+            }
+        }
+        printf("\n");
+    }
+}
 

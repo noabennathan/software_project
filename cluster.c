@@ -11,7 +11,7 @@ int main(int argc, char* argv[]){
     linked_list *O;
     Node *g1, *g2, *group;
     graph* src_graph;
-    int *S;
+    int *S, j, k;
     FILE* input_file = fopen(argv[1], "rb");
 
 	FILE* output_file = fopen(argv[2], "w");
@@ -31,6 +31,16 @@ int main(int argc, char* argv[]){
     printf("im here again\n");
 	/*crates A as spmat*/
 	create_spmat(src_graph, src_graph->n);
+
+	for (j = 0; j < 20; j++)
+    {
+	    for (k = 0; k < 20; k++)
+	        printf("%d ", src_graph->A[j*20 + k]);
+	    printf("\n");
+    }
+	printf("\n");
+
+	printSpmat(src_graph->A_spmat);
 
 	/*compute f*/
 
