@@ -32,6 +32,7 @@ void	add_row (struct _spmat *A, int *row, int i)
     int n = A -> n;
     spnode* head = NULL;
     spnode* tail = NULL;
+    spnode* new_node;
     spnode** row_lists = (spnode**) A -> private;
     int j, k;
     for (k = 0; k<A->n; k++){
@@ -44,18 +45,21 @@ void	add_row (struct _spmat *A, int *row, int i)
         {
             if (head == NULL)
             {
-                head = tail = malloc(sizeof(spnode));
-                /*i add this*/
-                tail->next = NULL;
+                head = malloc(sizeof(spnode));
+                head->val = 1;
+                head->col = j;
+                head->next = NULL;
+                tail = head;
+
             }
             else
             {
-                tail->next = malloc(sizeof(spnode));
-                tail = tail->next;
-                tail->val = row[j];
-                tail->col = j;
-                /*i add this part*/
-                tail->next = NULL;
+                new_node = malloc(sizeof(spnode));
+                new_node->col = j;
+                new_node->val = 1;
+                new_node->next = NULL;
+                tail->next = new_node;
+                tail = new_node;
             }
         }
     }
