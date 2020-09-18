@@ -75,6 +75,7 @@ graph* array_to_graph(int* list_nodes, graph* original_graph, int len){
         reduction_K(new_graph, len);
         printf("finish K\n");
         compute_B(new_graph);
+        printf("finish B\n");
         create_spmat (new_graph, len);
         compute_f(new_graph);
         return new_graph;
@@ -106,20 +107,19 @@ void reduction_A(graph* new_graph, int len, const int* g, graph* src_graph){
 }
 
 void reduction_K(graph* new_graph, int len){
-	double* K, row_sum;
+	double* K, row_sum, k;
 	int M = new_graph->M;
-	int i, j, k;
+	int i, j;
 	int* degrees = new_graph->A_row_sum;
 	double *K_row_sum = malloc((len*sizeof(double)));
-	printf("row 1\n");
 	K = calloc(len*len,sizeof(double));
-	printf("row 2\n");
 	for (i = 0; i < len; i++){
 		row_sum = 0;
 		for (j = 0; j < len; j++){
-			k = (*(degrees+i))*(*(degrees+j))/M;
-			*(K+(len*i)+j) = k;
-			row_sum += k;
+
+			k = (double)(degrees[i]*degrees[j])/M;
+            K[i*len + j] = k;
+            row_sum += k;
 		}
 		K_row_sum[i] = row_sum;
 	}

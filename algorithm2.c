@@ -23,10 +23,7 @@ int* divide_a_group_into_two(Node* g){
     {
         S[i] = 1;
     }
-
-
     mat_shift(group);
-    printf("finish mat shift\n");
     /*line 1*/
     power_iteration(group, eigen_vector, eigen_value);
 
@@ -67,12 +64,12 @@ void mat_shift(graph* group)
         if(group->A_row_sum[i] - group->K_row_sum[i] - group->f[i] > C)
             C = group->A_row_sum[i] - group->K_row_sum[i] - group->f[i];
     }
-    for (i = 0; i < group->n; i++)
-    {
-        group->f[i] = group->f[i] + C;
+    if (C > 0){
+        for (i = 0; i < group->n; i++)
+        {
+            group->f[i] = group->f[i] + C;
+        }
     }
-    printf("finish mat shift\n");
-
 }
 
 
@@ -92,7 +89,6 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
     double* f = group->f;
     int* A_row_sum = group -> A_row_sum;
     int diff = 1, i, n = group->n;
-    printf("power iteration\n");
 
 
     srand(time(0));
@@ -111,8 +107,14 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
 
     while (diff == 1)
     {
+        printf("vector b: \n");
+        for (i = 0; i < n; i++){
+            printf("%f ", b[i]);
+        }
+        printf("\n");
         diff =0;
         mult(A, b, a_tmp);
+        printf("\n");
         for (i = 0; i < n; i++)
         {
             f_tmp[i] = b[i] * f[i];
@@ -168,8 +170,9 @@ double calculate_sbs(graph* group, int* S)
     spmat* A = group->A_spmat;
     double* f = group->f;
     int* A_row_sum = group -> A_row_sum;
-    double *a_tmp, *f_tmp, a_res = 0, f_res = 0, sum_sk = 0;
+    double *a_tmp, *f_tmp, a_res = 0, f_res = 0, sum_sk = 0, x;
     int i, n = group->n;
+    printf("compute sbs\n");
 
     a_tmp = calloc(n, sizeof(double));
     f_tmp = calloc(n, sizeof(double));
@@ -189,5 +192,7 @@ double calculate_sbs(graph* group, int* S)
 
     free(a_tmp);
     free(f_tmp);
-    return (a_res + f_res + sum_sk * sum_sk);
+    x = (a_res + f_res + sum_sk * sum_sk);
+    printf("sbs = %.2f\n", x);
+    return x;
 }
