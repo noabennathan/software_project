@@ -63,7 +63,7 @@ graph* initialize_graph_from_input(FILE* input_file){
 }
 
 graph* array_to_graph(int* list_nodes, graph* original_graph, int len){
-	graph* new_graph = malloc(sizeof(graph*));
+	graph* new_graph = malloc(sizeof(graph));
 	new_graph->n = len;
 	if (len == 0){
 	    return new_graph;
@@ -71,7 +71,9 @@ graph* array_to_graph(int* list_nodes, graph* original_graph, int len){
 	else{
         new_graph->ver_list = list_nodes;
         reduction_A(new_graph, len, list_nodes, original_graph);
+        printf("finish A\n");
         reduction_K(new_graph, len);
+        printf("finish K\n");
         compute_B(new_graph);
         create_spmat (new_graph, len);
         compute_f(new_graph);
@@ -109,7 +111,9 @@ void reduction_K(graph* new_graph, int len){
 	int i, j, k;
 	int* degrees = new_graph->A_row_sum;
 	double *K_row_sum = malloc((len*sizeof(double)));
+	printf("row 1\n");
 	K = calloc(len*len,sizeof(double));
+	printf("row 2\n");
 	for (i = 0; i < len; i++){
 		row_sum = 0;
 		for (j = 0; j < len; j++){

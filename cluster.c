@@ -16,11 +16,11 @@ int main(int argc, char* argv[]){
 	FILE* output_file = fopen(argv[2], "w");
 	assert_bigger_zero(argc);
 
-    g1 = (Node*)malloc(sizeof(Node*));
-    g2 = (Node*)malloc(sizeof(Node*));
-    group = (Node*)malloc(sizeof(Node*));
-    P = (linked_list*)malloc(sizeof(linked_list*));
-    O = (linked_list*)malloc(sizeof(linked_list*));
+    g1 = (Node*)malloc(sizeof(Node));
+    g2 = (Node*)malloc(sizeof(Node));
+    group = (Node*)malloc(sizeof(Node));
+    P = (linked_list*)malloc(sizeof(linked_list));
+    O = (linked_list*)malloc(sizeof(linked_list));
 
 
 	/*read input file to struct graph*/
@@ -88,7 +88,7 @@ printf("\n");
 				add_node(P, g2->data);
 			}
 		}
-	group = P->head;
+	group = group->next;
 	}
 	printf("write to output\n");
 	write_to_output(output_file, O);
@@ -103,12 +103,19 @@ printf("\n");
 
 void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
 	int *g1_ver, *g2_ver, i, count = 0, j = 0, k = 0;
+	printf("from S to 2 groups\n");
+	printf("S in this \n");
+	for (i = 0; i<group->n; i++){
+	    printf("%d ", S[i]);
+	}
+	printf("\n");
 	for (i = 0; i < group->n; i++)
 	{
 		if (S[i] == 1){
 			count+= 1;
 		}
 	}
+	printf("count =  %d\n", count);
 	g1_ver = (int*)malloc(sizeof(int) * count);
 	g2_ver = (int*)malloc(sizeof(int) * (group->n - count));
 	for (i = 0; i < group->n; i++)
@@ -123,7 +130,8 @@ void from_S_to_2_groups(int* S, Node *g1, Node* g2, graph* group){
 			k++;
 		}
 	}
-	g1 -> data = array_to_graph(g1_ver, group,count);
+	g1 -> data = array_to_graph(g1_ver, group, count);
+	printf("g1 was okay\n");
 	g2 -> data = array_to_graph(g2_ver, group,(group->n - count));
 }
 

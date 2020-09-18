@@ -7,7 +7,7 @@ void initialize_list(linked_list* P){
 
 /*adds the graph that receives to be the first graph, the head*/
 void add_node(linked_list* P, graph* graph){
-	Node* new_node = (Node*)malloc(sizeof(Node*));
+	Node* new_node = (Node*)malloc(sizeof(Node));
 	new_node->data = graph;
 	new_node->next = NULL;
 	if(P->head == NULL){
