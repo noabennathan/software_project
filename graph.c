@@ -71,7 +71,9 @@ graph* array_to_graph(int* list_nodes, graph* original_graph, int len){
 	else{
         new_graph->ver_list = list_nodes;
         reduction_A(new_graph, len, list_nodes, original_graph);
+        printf("finish reduction_A\n");
         reduction_K(new_graph, len);
+        printf("finish reduction_K\n");
         compute_B(new_graph);
         create_spmat (new_graph, len);
         compute_f(new_graph);
