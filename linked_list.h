@@ -7,6 +7,7 @@ typedef struct Node{
 
 typedef struct linked_list{
     Node* head;
+    Node* tail;
 }linked_list;
 
 void initialize_list(linked_list* P);

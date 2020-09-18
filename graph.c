@@ -6,29 +6,29 @@
 graph* initialize_graph_from_input(FILE* input_file){
 	int k, i, n, j, *q, *p, M = 0, *A, *curr_vertex_neighbors, m;
 	double  *K, k_sum, r;
-	graph* graph;
+	graph* s_graph;
 
-	graph = malloc(sizeof(*graph));
+	s_graph = malloc(sizeof(graph));
 	k = fread(&n, sizeof(int), 1, input_file);
 	assert_int(k,1);
-	graph->n = n;
+	s_graph->n = n;
 	A = (int*)malloc((n*n*sizeof(int)));
 	for(i = 0; i < n; i++){
 	    for (j = 0; j < n; j++){
 	        A[n*i + j] = 0;
 	    }
 	}
-	graph->ver_list = malloc((sizeof(int)*n));
+	s_graph->ver_list = malloc((sizeof(int)*n));
 	for (m = 0; m <n; m++){
-	    graph->ver_list[m] = m;
+	    s_graph->ver_list[m] = m;
 	}
-	graph->A_row_sum = (int*)malloc(n*sizeof(int));
+	s_graph->A_row_sum = (int*)malloc(n*sizeof(int));
 
 	/* create A and calculate M */
 	for (i = 0; i < n; i++){
 		k = fread(&j, sizeof(int), 1, input_file);;
         assert_int(k,1);
-		*(graph->A_row_sum + i) = j;
+		*(s_graph->A_row_sum + i) = j;
 		curr_vertex_neighbors = (int*) (malloc((j)*sizeof(int)));
 		k = fread(curr_vertex_neighbors, sizeof(int), j, input_file);
 		assert_int(k,j);
@@ -36,50 +36,61 @@ graph* initialize_graph_from_input(FILE* input_file){
 			*(A + (i*n) + (*q)) = 1;
 			M += 1;
 		}
-		graph->M=M;
+		s_graph->M=M;
 	}
-    graph->A = A;
+    s_graph->A = A;
 	/*builds K*/
 	K = (double*)malloc(n*n*sizeof(double));
-	graph->K_row_sum = (double*)malloc(graph->n*sizeof(double));
+	s_graph->K_row_sum = (double*)malloc(s_graph->n*sizeof(double));
 	i = 0;
-	for(p = graph->A_row_sum; p<(graph->A_row_sum + n); p++){
+	for(p = s_graph->A_row_sum; p<(s_graph->A_row_sum + n); p++){
 	    j = 0;
 	    k_sum = 0;
-		for(q = graph->A_row_sum; q<(graph->A_row_sum + n); q++){
+		for(q = s_graph->A_row_sum; q<(s_graph->A_row_sum + n); q++){
 		    r = (double)((*q)*(*p))/M;
 			*(K + (i*n) +j) = r;
 			k_sum += r;
 			j++;
 		}
-		graph->K_row_sum[i] = k_sum;
+		s_graph->K_row_sum[i] = k_sum;
 		i++;
 		j = 0;
 	}
-	graph->K = K;
-	compute_B(graph);
-	compute_f(graph);
-	return graph;
+	s_graph->K = K;
+	compute_B(s_graph);
+	compute_f(s_graph);
+	return s_graph;
 }
 
 graph* array_to_graph(int* list_nodes, graph* original_graph, int len){
-	graph* new_graph = malloc(sizeof(graph));
+	graph* new_graph = malloc(sizeof(graph*));
 	new_graph->n = len;
-	new_graph->ver_list = list_nodes;
-	reduction_A(new_graph, len, list_nodes, original_graph);
-	reduction_K(new_graph, len);
-    compute_B(new_graph);
-	create_spmat (new_graph, len);
-	compute_f(new_graph);
-	return new_graph;
+	if (len == 0){
+	    printf("len is 0\n");
+	    return new_graph;
+	}
+	else{
+        new_graph->ver_list = list_nodes;
+        reduction_A(new_graph, len, list_nodes, original_graph);
+        printf("finish reduction_A\n");
+        reduction_K(new_graph, len);
+        printf("finish reduction_K\n");
+        compute_B(new_graph);
+        printf("finish reduction_B\n");
+        create_spmat (new_graph, len);
+        printf("finish spmat\n");
+        compute_f(new_graph);
+        printf("finish array to graph\n");
+        return new_graph;
+	}
 }
 
 void reduction_A(graph* new_graph, int len, const int* g, graph* src_graph){
 	int i, j, row_sum, M = 0;
-	int* src_A = src_graph->A;
+	int* src_A = src_graph->A,  *reduction_A, *A_row_sum;
 	int n = src_graph->n;
-	int* reduction_A = (int*)malloc(sizeof(int)*len*len);
-	new_graph->A_row_sum = malloc((sizeof(int))*len);
+    A_row_sum = malloc(sizeof(int)*len);
+    reduction_A = malloc(sizeof(int)*len*len);
 	for (i = 0; i < len; i++){
 		row_sum = 0;
 		for (j = 0; j < len; j++){
@@ -94,17 +105,21 @@ void reduction_A(graph* new_graph, int len, const int* g, graph* src_graph){
 		}
 		new_graph->A_row_sum[i] = row_sum;
 	}
+    new_graph->A_row_sum = A_row_sum;
 	new_graph->A = reduction_A;
 	new_graph->M = M;
 }
 
 void reduction_K(graph* new_graph, int len){
-	double* K;
+	double* K, row_sum;
 	int M = new_graph->M;
-	int i, j, k, row_sum;
+	int i, j, k;
 	int* degrees = new_graph->A_row_sum;
+    printf("line 1\n");
 	new_graph->K_row_sum = malloc((len*sizeof(double)));
-	K = calloc(len*len,sizeof(double));
+    printf("line 2\n");
+	K = malloc(len*len*sizeof(double));
+    printf("line 3\n");
 	for (i = 0; i < len; i++){
 		row_sum = 0;
 		for (j = 0; j < len; j++){

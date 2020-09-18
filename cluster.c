@@ -18,7 +18,6 @@ int main(int argc, char* argv[]){
 
     g1 = (Node*)malloc(sizeof(Node*));
     g2 = (Node*)malloc(sizeof(Node*));
-    group = (Node*)malloc(sizeof(Node*));
     P = (linked_list*)malloc(sizeof(linked_list*));
     O = (linked_list*)malloc(sizeof(linked_list*));
 
@@ -27,31 +26,12 @@ int main(int argc, char* argv[]){
 	src_graph = initialize_graph_from_input(input_file);
 	/*crates A as spmat*/
 	create_spmat(src_graph, src_graph->n);
-
 	initialize_list(P);
 	initialize_list(O);
 
 	add_node(P, src_graph);
 	/*algorithm 2 iteration*/
     group = P->head;
-    /*
-S = malloc(sizeof(int)*src_graph->n);
-for (i = 0; i < src_graph->n; i++) {
-    if (i % 3 == 0) {
-        S[i] = 1;
-    } else {
-        S[i] = -1;
-    }
-}
-
-printf("---------algorithm 4----------\n");
-maximization_delta_Q(S, group->data);
-printf("S after = \n");
-for (m = 0; m < src_graph->n; m++){
-    printf("%d  ", S[m]);
-}
-printf("\n");
- */
 
 	while (group != NULL){
         S = divide_a_group_into_two(group);
@@ -88,7 +68,8 @@ printf("\n");
 				add_node(P, g2->data);
 			}
 		}
-	group = P->head;
+		group = group->next;
+	/*group = P->head;*/
 	}
 	printf("write to output\n");
 	write_to_output(output_file, O);

@@ -1,23 +1,32 @@
 #include "linked_list.h"
 
 void initialize_list(linked_list* P){
-	P = (linked_list*)malloc(sizeof(linked_list));
+	/*P = (linked_list*)malloc(sizeof(linked_list*));*/
 	P->head = NULL;
+	P->tail = NULL;
 }
 
 /*adds the graph that receives to be the first graph, the head*/
 void add_node(linked_list* P, graph* graph){
-	Node* save = P->head;
-	Node* new_node = (Node*)malloc(sizeof(Node*));
-	new_node->data = graph;
-	P->head = new_node;
-	P->head->next = save;
+    Node* new_node = (Node*)malloc(sizeof(Node*));
+    new_node->data = graph;
+    new_node->next = NULL;
+    if (P->head == NULL){
+        P->head = new_node;
+        P->tail =new_node;
+    }
+    else{
+        printf("not good\n");
+        P->tail->next = new_node;
+        P->tail = P->tail->next;
+    }
+
 }
 
 void delete_first_node(linked_list* P){
-	Node* save = P->head->next;
-	free(P->head);
-	P->head = save;
+	Node* save = P->head;
+	P->head = P->head->next;
+	free(save);
 }
 void delete_list_rec(Node* node){
 	if (node != NULL){
