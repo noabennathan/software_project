@@ -16,8 +16,8 @@ int* divide_a_group_into_two(Node* g){
     double *eigen_value, *eigen_vector, sBs;
     int *S, i, count = 0;
     S = (int*)malloc(sizeof(int) * group -> n);
-    eigen_value = (double*)malloc(sizeof(int));
-    eigen_vector = (double*)malloc(group->n * sizeof(int));
+    eigen_value = (double*)malloc(sizeof(double ));
+    eigen_vector = (double*)malloc(group->n * sizeof(double ));
 
     for (i = 0; i < group ->n; i++)
     {
@@ -86,7 +86,6 @@ void mat_shift(graph* group)
 void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
 {
     /*delete j after finish debugging*/
-    int j;
 
     double *b, *nextb, *a_tmp, *k_tmp, *f_tmp, *tmp, sum_sk = 0, sum, norma, x, y;
     spmat* A = group->A_spmat;
@@ -110,17 +109,10 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
     }
     /*in this loop we find the leading eigenvector */
 
-    /*delete after debug*/
-    for( j = 0; j < group->n; j++){
-        printf("%f\n, %f\n", b[j],a_tmp[j]);
-    }
-
     while (diff == 1)
     {
         diff =0;
-        printf("before mult\n");
         mult(A, b, a_tmp);
-        printf("after mult\n");
         for (i = 0; i < n; i++)
         {
             f_tmp[i] = b[i] * f[i];
@@ -128,12 +120,13 @@ void power_iteration(graph* group, double* eigen_vector, double* eigen_value)
         }
         for (i = 0; i < n; i++)
         {
-            k_tmp[i] = sum_sk * A_row_sum[i] / group->M;
+            k_tmp[i] = (sum_sk * A_row_sum[i]) / group->M;
             nextb[i] = a_tmp[i] - k_tmp[i] - f_tmp[i];
             sum = sum + nextb[i] * nextb[i];
         }
         norma = sqrt(sum);
         sum = 0;
+        sum_sk = 0;
 
         for (i = 0; i < n; i++)
         {
